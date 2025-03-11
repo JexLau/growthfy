@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growthfy.ai - 转化社媒噪声为增长洞察</title>
+  <meta name="description" content="Growthfy.ai帮助企业将无序的社交媒体信息流转化为有序的商业智能，发现隐藏的市场趋势、消费者情绪和竞争动态，让数据驱动决策变得简单高效。">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    // 深色模式和浅色模式的配置
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+              950: '#082f49',
+            },
+            secondary: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            },
+            dark: {
+              100: '#1e293b',
+              200: '#0f172a',
+              300: '#020617',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out forwards',
+            'slide-up': 'slideUp 0.5s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card-hover {
+            @apply transition-all duration-300 ease-in-out transform hover:shadow-lg hover:scale-[1.02] hover:border-primary-500 dark:hover:border-primary-400;
+        }
+        .btn-primary {
+            @apply inline-flex items-center px-6 py-3 rounded-lg text-white bg-primary-600 hover:bg-primary-700 transition-all duration-200 font-medium;
+        }
+        .btn-secondary {
+            @apply inline-flex items-center px-6 py-3 rounded-lg text-primary-700 bg-primary-50 border border-primary-200 hover:bg-primary-100 dark:text-primary-200 dark:bg-dark-100 dark:border-primary-800 dark:hover:bg-dark-200 transition-all duration-200 font-medium;
+        }
+        .section-fade {
+            opacity: 0;
+        }
+        .animate-on-scroll {
+            @apply animate-fade-in;
+        }
+      }
+  </style>
+</head>
+
+<body class="dark:bg-dark-200 bg-white text-slate-800 transition-colors duration-300 dark:text-slate-200">
+  <!-- 主要导航栏 -->
+  <header
+    class="dark:bg-dark-200/80 sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-sm dark:border-slate-700">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <!-- Logo -->
+        <div class="flex items-center">
+          <a href="#" class="flex items-center">
+            <span class="text-primary-600 dark:text-primary-400 text-2xl font-bold">Growthfy<span
+                class="text-secondary-600 dark:text-secondary-400">.ai</span></span>
+          </a>
+        </div>
+
+        <!-- 主导航 - 桌面端 -->
+        <nav class="hidden space-x-8 md:flex">
+          <a href="#features"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">产品</a>
+          <a href="#solutions"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">解决方案</a>
+          <a href="#pricing"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">定价</a>
+          <a href="#resources"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">资源</a>
+          <a href="#blog"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">博客</a>
+        </nav>
+
+        <!-- 次导航 - 桌面端 -->
+        <div class="hidden items-center space-x-4 md:flex">
+          <button id="theme-toggle"
+            class="hover:text-primary-600 dark:hover:text-primary-400 rounded-full p-2 text-slate-600 focus:outline-none dark:text-slate-300">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:inline"></i>
+          </button>
+          <a href="#"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">登录</a>
+          <a href="#trial" class="btn-primary">
+            <span>免费试用</span>
+            <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+
+        <!-- 移动端菜单按钮 -->
+        <div class="flex items-center md:hidden">
+          <button id="theme-toggle-mobile"
+            class="hover:text-primary-600 dark:hover:text-primary-400 mr-2 rounded-full p-2 text-slate-600 focus:outline-none dark:text-slate-300">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:inline"></i>
+          </button>
+          <button id="mobile-menu-button"
+            class="hover:text-primary-600 dark:hover:text-primary-400 rounded-md p-2 text-slate-600 focus:outline-none dark:text-slate-300">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 移动端菜单 -->
+      <div id="mobile-menu"
+        class="animate-fade-in hidden border-t border-slate-200 py-4 dark:border-slate-700 md:hidden">
+        <div class="flex flex-col space-y-4">
+          <a href="#features"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">产品</a>
+          <a href="#solutions"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">解决方案</a>
+          <a href="#pricing"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">定价</a>
+          <a href="#resources"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">资源</a>
+          <a href="#blog"
+            class="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">博客</a>
+          <div class="border-t border-slate-200 pt-2 dark:border-slate-700">
+            <a href="#"
+              class="hover:text-primary-600 dark:hover:text-primary-400 block py-2 text-slate-600 transition-colors duration-200 dark:text-slate-300">登录</a>
+            <a href="#trial" class="btn-primary mt-2 block w-full text-center">免费试用</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero区域 -->
+    <section class="section-fade animate-on-scroll px-4 pb-24 pt-20 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="lg:flex lg:items-center lg:space-x-12">
+          <div class="mb-10 lg:mb-0 lg:w-1/2">
+            <h1 class="mb-6 text-3xl font-bold leading-tight text-slate-900 dark:text-white sm:text-4xl md:text-5xl">
+              转化社媒噪声为<span class="text-primary-600 dark:text-primary-400">增长洞察</span>，让数据驱动决策不再复杂
+            </h1>
+            <p class="mb-8 text-lg text-slate-600 dark:text-slate-300 md:text-xl">
+              Growthfy.ai 帮助企业将无序的社交媒体信息流转化为有序的商业智能，发现隐藏的市场趋势、消费者情绪和竞争动态，让您领先一步把握市场机遇。
+            </p>
+            <div class="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+              <a href="#trial" class="btn-primary">
+                <span>免费开始</span>
+                <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+              <a href="#features" class="btn-secondary">
+                <span>了解更多</span>
+                <i class="fas fa-chevron-down ml-2"></i>
+              </a>
+            </div>
+          </div>
+          <div class="lg:w-1/2">
+            <div class="relative overflow-hidden rounded-xl shadow-2xl">
+              <div class="dark:bg-dark-100 bg-slate-100 p-1">
+                <div class="mb-1 flex space-x-1">
+                  <div class="h-3 w-3 rounded-full bg-red-400"></div>
+                  <div class="h-3 w-3 rounded-full bg-yellow-400"></div>
+                  <div class="h-3 w-3 rounded-full bg-green-400"></div>
+                </div>
+                <div class="dark:bg-dark-300 overflow-hidden rounded-lg bg-white">
+                  <img src="/api/placeholder/800/480" alt="Growthfy.ai 平台界面预览" class="h-auto w-full object-cover">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 社会认同区域 -->
+    <section class="dark:bg-dark-100 section-fade animate-on-scroll bg-slate-50 py-12">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="mb-8 text-center text-slate-500 dark:text-slate-400">受到各行业领先企业的信赖</p>
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+          <div class="flex h-12 w-24 items-center justify-center opacity-60 transition-opacity hover:opacity-100">
+            <div class="h-6 w-24 rounded bg-slate-300 dark:bg-slate-600"></div>
+          </div>
+          <div class="flex h-12 w-24 items-center justify-center opacity-60 transition-opacity hover:opacity-100">
+            <div class="h-6 w-24 rounded bg-slate-300 dark:bg-slate-600"></div>
+          </div>
+          <div class="flex h-12 w-24 items-center justify-center opacity-60 transition-opacity hover:opacity-100">
+            <div class="h-6 w-24 rounded bg-slate-300 dark:bg-slate-600"></div>
+          </div>
+          <div class="flex h-12 w-24 items-center justify-center opacity-60 transition-opacity hover:opacity-100">
+            <div class="h-6 w-24 rounded bg-slate-300 dark:bg-slate-600"></div>
+          </div>
+          <div class="flex h-12 w-24 items-center justify-center opacity-60 transition-opacity hover:opacity-100">
+            <div class="h-6 w-24 rounded bg-slate-300 dark:bg-slate-600"></div>
+          </div>
+        </div>
+        <div class="mx-auto mt-12 max-w-4xl text-center">
+          <p class="text-lg italic text-slate-600 dark:text-slate-300">"Growthfy.ai
+            彻底改变了我们理解市场动态的方式。从繁杂的社媒数据中提取关键洞察，帮助我们在竞争中保持领先。"</p>
+          <p class="mt-4 font-medium">— 张总监，某知名电商品牌</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 核心功能区域 -->
+    <section id="features" class="section-fade animate-on-scroll px-4 py-20 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="mx-auto mb-16 max-w-3xl text-center">
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 dark:text-white">强大功能，简单使用</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300">Growthfy.ai 集成多项前沿技术，将复杂的社媒数据转化为清晰可行的商业洞察。</p>
+        </div>
+
+        <div class="grid gap-12 md:grid-cols-2">
+          <!-- 功能1：实时洞察引擎 -->
+          <div
+            class="card-hover dark:bg-dark-100 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700">
+            <div class="p-6">
+              <div
+                class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                <i class="fas fa-bolt text-primary-600 dark:text-primary-400 text-xl"></i>
+              </div>
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">实时洞察引擎</h3>
+              <p class="mb-4 text-slate-600 dark:text-slate-300">超越简单监控，提供即时可行的商业判断。AI驱动的分析引擎能够理解行业上下文，从海量信息中精准定位关键信号。
+              </p>
+              <div class="dark:bg-dark-200 mt-4 rounded-lg bg-slate-50 p-4">
+                <div class="flex items-center text-sm text-slate-800 dark:text-slate-200">
+                  <i class="fas fa-check-circle text-secondary-500 mr-2"></i>
+                  <span>平均提前14天发现新兴市场趋势</span>
+                </div>
+              </div>
+            </div>
+            <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 dark:border-slate-700">
+              <div class="p-4">
+                <img src="/api/placeholder/640/360" alt="实时洞察引擎界面" class="h-auto w-full rounded-lg shadow">
+              </div>
+            </div>
+          </div>
+
+          <!-- 功能2：跨平台信息整合 -->
+          <div
+            class="card-hover dark:bg-dark-100 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700">
+            <div class="p-6">
+              <div
+                class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                <i class="fas fa-layer-group text-primary-600 dark:text-primary-400 text-xl"></i>
+              </div>
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">跨平台信息整合</h3>
+              <p class="mb-4 text-slate-600 dark:text-slate-300">统一分析多渠道社媒数据，呈现完整市场画像。无缝连接各大社交平台，消除数据孤岛，全方位把握市场动态。</p>
+              <div class="mt-4 flex flex-wrap gap-3">
+                <div class="dark:bg-dark-200 flex items-center rounded-lg bg-slate-100 p-2">
+                  <i class="fab fa-weibo mr-2 text-red-500"></i>
+                  <span class="text-sm">微博</span>
+                </div>
+                <div class="dark:bg-dark-200 flex items-center rounded-lg bg-slate-100 p-2">
+                  <i class="fab fa-weixin mr-2 text-green-500"></i>
+                  <span class="text-sm">微信</span>
+                </div>
+                <div class="dark:bg-dark-200 flex items-center rounded-lg bg-slate-100 p-2">
+                  <i class="fas fa-comment mr-2 text-blue-500"></i>
+                  <span class="text-sm">小红书</span>
+                </div>
+                <div class="dark:bg-dark-200 flex items-center rounded-lg bg-slate-100 p-2">
+                  <i class="fab fa-tiktok mr-2 text-black dark:text-white"></i>
+                  <span class="text-sm">抖音</span>
+                </div>
+                <div class="dark:bg-dark-200 flex items-center rounded-lg bg-slate-100 p-2">
+                  <i class="fab fa-instagram mr-2 text-purple-500"></i>
+                  <span class="text-sm">Instagram</span>
+                </div>
+              </div>
+            </div>
+            <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 dark:border-slate-700">
+              <div class="p-4">
+                <img src="/api/placeholder/640/360" alt="跨平台数据整合界面" class="h-auto w-full rounded-lg shadow">
+              </div>
+            </div>
+          </div>
+
+          <!-- 功能3：预测性分析 -->
+          <div
+            class="card-hover dark:bg-dark-100 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700">
+            <div class="p-6">
+              <div
+                class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                <i class="fas fa-chart-line text-primary-600 dark:text-primary-400 text-xl"></i>
+              </div>
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">预测性分析</h3>
+              <p class="mb-4 text-slate-600 dark:text-slate-300">不只是回顾过去，更能预测未来趋势和机会。先进的机器学习算法分析历史数据和当前动态，预测市场趋势演变。</p>
+              <div class="dark:bg-dark-200 mt-4 rounded-lg bg-slate-50 p-4">
+                <div class="flex items-center text-sm text-slate-800 dark:text-slate-200">
+                  <i class="fas fa-chart-pie text-secondary-500 mr-2"></i>
+                  <span>预测准确率高达87%，持续自我优化</span>
+                </div>
+              </div>
+            </div>
+            <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 dark:border-slate-700">
+              <div class="p-4">
+                <img src="/api/placeholder/640/360" alt="预测性分析界面" class="h-auto w-full rounded-lg shadow">
+              </div>
+            </div>
+          </div>
+
+          <!-- 功能4：定制化智能报告 -->
+          <div
+            class="card-hover dark:bg-dark-100 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700">
+            <div class="p-6">
+              <div
+                class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                <i class="fas fa-file-alt text-primary-600 dark:text-primary-400 text-xl"></i>
+              </div>
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">定制化智能报告</h3>
+              <p class="mb-4 text-slate-600 dark:text-slate-300">
+                根据企业独特需求自动生成决策辅助报告。不再需要数据分析师人工处理，系统自动生成专业可视化报告，深度剖析数据含义。</p>
+              <div class="mt-4 flex space-x-2">
+                <span
+                  class="dark:bg-dark-200 rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600 dark:text-slate-300">日报</span>
+                <span
+                  class="dark:bg-dark-200 rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600 dark:text-slate-300">周报</span>
+                <span
+                  class="dark:bg-dark-200 rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600 dark:text-slate-300">月度深度报告</span>
+                <span
+                  class="dark:bg-dark-200 rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600 dark:text-slate-300">定制报表</span>
+              </div>
+            </div>
+            <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 dark:border-slate-700">
+              <div class="p-4">
+                <img src="/api/placeholder/640/360" alt="智能报告示例" class="h-auto w-full rounded-lg shadow">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 工作原理/流程展示 -->
+    <section class="dark:bg-dark-100 section-fade animate-on-scroll bg-slate-50 px-4 py-20 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="mx-auto mb-16 max-w-3xl text-center">
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 dark:text-white">Growthfy.ai 如何工作</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300">四个简单步骤，从海量社媒数据到精准商业洞察</p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- 步骤1 -->
+          <div
+            class="dark:bg-dark-200 flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md">
+            <div
+              class="bg-primary-100 dark:bg-primary-900 mb-6 flex h-16 w-16 items-center justify-center rounded-full">
+              <span class="text-primary-600 dark:text-primary-400 text-2xl font-bold">1</span>
+            </div>
+            <h3 class="mb-3 text-lg font-semibold text-slate-900 dark:text-white">连接数据源</h3>
+            <p class="text-slate-600 dark:text-slate-300">一键连接各大社交平台，无缝采集实时数据流，告别手动收集时代。</p>
+          </div>
+
+          <!-- 步骤2 -->
+          <div
+            class="dark:bg-dark-200 flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md">
+            <div
+              class="bg-primary-100 dark:bg-primary-900 mb-6 flex h-16 w-16 items-center justify-center rounded-full">
+              <span class="text-primary-600 dark:text-primary-400 text-2xl font-bold">2</span>
+            </div>
+            <h3 class="mb-3 text-lg font-semibold text-slate-900 dark:text-white">AI分析处理</h3>
+            <p class="text-slate-600 dark:text-slate-300">强大AI引擎自动分析情感、话题和趋势，从海量信息中提炼关键洞察。</p>
+          </div>
+
+          <!-- 步骤3 -->
+          <div
+            class="dark:bg-dark-200 flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md">
+            <div
+              class="bg-primary-100 dark:bg-primary-900 mb-6 flex h-16 w-16 items-center justify-center rounded-full">
+              <span class="text-primary-600 dark:text-primary-400 text-2xl font-bold">3</span>
+            </div>
+            <h3 class="mb-3 text-lg font-semibold text-slate-900 dark:text-white">生成洞察报告</h3>
+            <p class="text-slate-600 dark:text-slate-300">自动生成直观、专业的可视化报告，深度解读数据背后的商业意义。</p>
+          </div>
+
+          <!-- 步骤4 -->
+          <div
+            class="dark:bg-dark-200 flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md">
+            <div
+              class="bg-primary-100 dark:bg-primary-900 mb-6 flex h-16 w-16 items-center justify-center rounded-full">
+              <span class="text-primary-600 dark:text-primary-400 text-2xl font-bold">4</span>
+            </div>
+            <h3 class="mb-3 text-lg font-semibold text-slate-900 dark:text-white">采取行动</h3>
+            <p class="text-slate-600 dark:text-slate-300">基于数据洞察制定策略并快速实施，抢占市场先机，提升决策效率。</p>
+          </div>
+        </div>
+
+        <div class="mt-12 flex justify-center">
+          <a href="#" class="btn-secondary">
+            <span>查看详细演示</span>
+            <i class="fas fa-play-circle ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 使用场景/解决方案区域 -->
+    <section id="solutions" class="section-fade animate-on-scroll px-4 py-20 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="mx-auto mb-16 max-w-3xl text-center">
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 dark:text-white">适合各类企业场景</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300">无论您是营销团队、产品部门还是企业决策层，Growthfy.ai 都能提供精准洞察</p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-3">
+          <!-- 场景1 -->
+          <div
+            class="dark:bg-dark-100 card-hover overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700">
+            <div class="bg-primary-600 dark:bg-primary-800 relative h-40">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fas fa-bullhorn text-5xl text-white"></i>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">市场营销团队</h3>
+              <div class="mb-4">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">核心痛点</span>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">难以实时把握消费者情绪变化，营销活动效果评估滞后</p>
+              </div>
+              <div class="mb-4">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">Growthfy.ai 解决方案</span>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">实时情感分析与营销活动效果追踪，提供竞品对比分析</p>
+              </div>
+              <div class="mb-4">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">预期成果</span>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">营销ROI平均提升32%，消费者洞察获取速度提升5倍</p>
+              </div>
+              <a href="#"
+                class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
+                了解更多 <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 场景2 -->
+          <div
+            class="dark:bg-dark-100 card-hover overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700">
+            <div class="bg-secondary-600 dark:bg-secondary-800 relative h-40">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fas fa-box text-5xl text-white"></i>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">产品团队</h3>
+              <div class="mb-4">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">核心痛点</span>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">用户反馈收集分散且低效，难以识别真正的产品改进方向</p>
+              </div>
+              <div class="mb-4">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">Growthfy.ai 解决方案</span>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">整合多渠道用户反馈，智能分类产品讨论热点与问题</p>
+              </div>
+              <div class="mb-4">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">预期成果</span>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">产品迭代决策时间缩短40%，用户满意度提升25%</p>
+              </div>
+              <a href="#"
+                class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
+                了解更多 <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 场景3 -->
+          <div
+            class="dark:bg-dark-100 card-hover overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700">
+            <div class="relative h-40 bg-slate-700 dark:bg-slate-800">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fas fa-briefcase text-5xl text-white"></i>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">企业决策层</h3>
+              <div class="mb-4">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">核心痛点</span>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">市场趋势把握不及时，战略决策缺乏数据支撑</p>
+              </div>
+              <div class="mb-4">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">Growthfy.ai 解决方案</span>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">行业趋势预测与竞争态势分析，提供战略决策支持</p>
+              </div>
+              <div class="mb-4">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">预期成果</span>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">战略决策准确性提升45%，市场机会捕获率提高35%</p>
+              </div>
+              <a href="#"
+                class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
+                了解更多 <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 案例研究/成功故事 -->
+    <section class="dark:bg-dark-100 section-fade animate-on-scroll bg-slate-50 px-4 py-20 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="mx-auto mb-16 max-w-3xl text-center">
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 dark:text-white">客户成功案例</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300">了解领先企业如何利用Growthfy.ai实现数据驱动增长</p>
+        </div>
+
+        <div class="grid gap-10 md:grid-cols-2">
+          <!-- 案例1 -->
+          <div class="dark:bg-dark-200 overflow-hidden rounded-xl bg-white shadow-sm transition-shadow hover:shadow-md">
+            <div class="relative aspect-video bg-slate-200 dark:bg-slate-700">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fas fa-play-circle text-4xl text-white opacity-80"></i>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="mb-4 flex items-center">
+                <div class="mr-3 h-10 w-10 rounded-full bg-slate-300 dark:bg-slate-600"></div>
+                <div>
+                  <h4 class="font-medium text-slate-900 dark:text-white">领先美妆品牌</h4>
+                  <p class="text-sm text-slate-500 dark:text-slate-400">美妆行业</p>
+                </div>
+              </div>
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">通过社媒洞察捕捉新兴美妆趋势</h3>
+              <p class="mb-4 text-slate-600 dark:text-slate-300">该品牌借助Growthfy.ai提前6个月发现关键美妆趋势，迅速调整产品线，在新品类中获得领先市场份额。
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-secondary-600 dark:text-secondary-400 font-medium">32%</span>
+                  <span class="ml-1 text-sm text-slate-500 dark:text-slate-400">新品收入增长</span>
+                </div>
+                <a href="#"
+                  class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
+                  查看完整案例 <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 案例2 -->
+          <div class="dark:bg-dark-200 overflow-hidden rounded-xl bg-white shadow-sm transition-shadow hover:shadow-md">
+            <div class="relative aspect-video bg-slate-200 dark:bg-slate-700">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fas fa-play-circle text-4xl text-white opacity-80"></i>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="mb-4 flex items-center">
+                <div class="mr-3 h-10 w-10 rounded-full bg-slate-300 dark:bg-slate-600"></div>
+                <div>
+                  <h4 class="font-medium text-slate-900 dark:text-white">新兴科技企业</h4>
+                  <p class="text-sm text-slate-500 dark:text-slate-400">消费电子</p>
+                </div>
+              </div>
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">利用用户反馈优化产品体验</h3>
+              <p class="mb-4 text-slate-600 dark:text-slate-300">该公司通过Growthfy.ai整合多平台用户讨论，发现关键改进点，产品满意度大幅提升，负面评价减少65%。
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-secondary-600 dark:text-secondary-400 font-medium">43%</span>
+                  <span class="ml-1 text-sm text-slate-500 dark:text-slate-400">复购率提升</span>
+                </div>
+                <a href="#"
+                  class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
+                  查看完整案例 <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 定价模块 -->
+    <section id="pricing" class="section-fade animate-on-scroll px-4 py-20 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="mx-auto mb-16 max-w-3xl text-center">
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 dark:text-white">灵活定价，满足不同需求</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300">从初创企业到大型集团，我们提供适合各类企业的定价方案</p>
+        </div>
+
+        <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+          <!-- 基础版 -->
+          <div
+            class="dark:bg-dark-100 flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-slate-700">
+            <div class="border-b border-slate-200 p-6 dark:border-slate-700">
+              <h3 class="mb-1 text-xl font-semibold text-slate-900 dark:text-white">基础版</h3>
+              <p class="mb-4 text-slate-500 dark:text-slate-400">适合小型企业和初创团队</p>
+              <div class="flex items-baseline">
+                <span class="text-3xl font-bold text-slate-900 dark:text-white">¥799</span>
+                <span class="ml-1 text-slate-500 dark:text-slate-400">/月</span>
+              </div>
+            </div>
+            <div class="flex-grow p-6">
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">监控3个社交平台</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">每日数据更新</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">基础情感分析</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">2个用户席位</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">标准邮件支持</span>
+                </li>
+              </ul>
+            </div>
+            <div class="border-t border-slate-200 p-6 dark:border-slate-700">
+              <a href="#trial" class="btn-secondary w-full text-center">
+                开始免费试用
+              </a>
+            </div>
+          </div>
+
+          <!-- 专业版 -->
+          <div
+            class="dark:bg-dark-100 border-primary-500 dark:border-primary-400 relative flex flex-col overflow-hidden rounded-xl border-2 bg-white shadow-md transition-shadow hover:shadow-lg">
+            <div class="absolute right-0 top-0">
+              <div class="bg-primary-500 dark:bg-primary-400 px-4 py-1 text-sm font-medium text-white">
+                最受欢迎
+              </div>
+            </div>
+            <div class="border-b border-slate-200 p-6 dark:border-slate-700">
+              <h3 class="mb-1 text-xl font-semibold text-slate-900 dark:text-white">专业版</h3>
+              <p class="mb-4 text-slate-500 dark:text-slate-400">适合中型企业和专业营销团队</p>
+              <div class="flex items-baseline">
+                <span class="text-primary-600 dark:text-primary-400 text-3xl font-bold">¥1,999</span>
+                <span class="ml-1 text-slate-500 dark:text-slate-400">/月</span>
+              </div>
+            </div>
+            <div class="flex-grow p-6">
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">监控所有主要社交平台</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">实时数据更新</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">高级情感分析与趋势预测</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">10个用户席位</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">优先电话和邮件支持</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">定制化报告模板</span>
+                </li>
+              </ul>
+            </div>
+            <div class="border-t border-slate-200 p-6 dark:border-slate-700">
+              <a href="#trial" class="btn-primary w-full text-center">
+                开始免费试用
+              </a>
+            </div>
+          </div>
+
+          <!-- 企业版 -->
+          <div
+            class="dark:bg-dark-100 flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-slate-700">
+            <div class="border-b border-slate-200 p-6 dark:border-slate-700">
+              <h3 class="mb-1 text-xl font-semibold text-slate-900 dark:text-white">企业版</h3>
+              <p class="mb-4 text-slate-500 dark:text-slate-400">适合大型企业和集团</p>
+              <div class="flex items-baseline">
+                <span class="text-3xl font-bold text-slate-900 dark:text-white">定制</span>
+              </div>
+            </div>
+            <div class="flex-grow p-6">
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">无限社交平台监控</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">实时数据更新与预警</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">顶级AI分析引擎与定制算法</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">无限用户席位</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">24/7专属客户成功经理</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+                  <span class="text-slate-600 dark:text-slate-300">API接入与系统集成</span>
+                </li>
+              </ul>
+            </div>
+            <div class="border-t border-slate-200 p-6 dark:border-slate-700">
+              <a href="#" class="btn-secondary w-full text-center">
+                联系销售团队
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 text-center">
+          <a href="#"
+            class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
+            查看完整定价对比 <i class="fas fa-arrow-right ml-1"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 博客/资源 -->
+    <section id="blog" class="dark:bg-dark-100 section-fade animate-on-scroll bg-slate-50 px-4 py-20 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="mx-auto mb-16 max-w-3xl text-center">
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 dark:text-white">洞察与资源</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300">最新行业动态与社媒分析最佳实践</p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-3">
+          <!-- 博客文章1 -->
+          <div class="dark:bg-dark-200 overflow-hidden rounded-xl bg-white shadow-sm transition-shadow hover:shadow-md">
+            <div class="aspect-video bg-slate-200 dark:bg-slate-700"></div>
+            <div class="p-6">
+              <div class="mb-3 flex items-center text-sm text-slate-500 dark:text-slate-400">
+                <span>社媒趋势</span>
+                <span class="mx-2">•</span>
+                <span>10分钟阅读</span>
+              </div>
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">2025年社交媒体营销的7个关键趋势</h3>
+              <p class="mb-4 text-slate-600 dark:text-slate-300">探索未来一年将主导社交媒体营销格局的关键趋势，以及企业如何提前布局...</p>
+              <a href="#"
+                class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
+                阅读全文 <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 博客文章2 -->
+          <div class="dark:bg-dark-200 overflow-hidden rounded-xl bg-white shadow-sm transition-shadow hover:shadow-md">
+            <div class="aspect-video bg-slate-200 dark:bg-slate-700"></div>
+            <div class="p-6">
+              <div class="mb-3 flex items-center text-sm text-slate-500 dark:text-slate-400">
+                <span>数据分析</span>
+                <span class="mx-2">•</span>
+                <span>8分钟阅读</span>
+              </div>
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">如何从社交媒体数据中提取有价值的商业洞察</h3>
+              <p class="mb-4 text-slate-600 dark:text-slate-300">深入了解数据分析方法，将海量社交媒体信息转化为可操作的商业策略...</p>
+              <a href="#"
+                class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
+                阅读全文 <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 博客文章3 -->
+          <div class="dark:bg-dark-200 overflow-hidden rounded-xl bg-white shadow-sm transition-shadow hover:shadow-md">
+            <div class="aspect-video bg-slate-200 dark:bg-slate-700"></div>
+            <div class="p-6">
+              <div class="mb-3 flex items-center text-sm text-slate-500 dark:text-slate-400">
+                <span>案例研究</span>
+                <span class="mx-2">•</span>
+                <span>12分钟阅读</span>
+              </div>
+              <h3 class="mb-3 text-xl font-semibold text-slate-900 dark:text-white">某知名快消品牌如何利用社媒洞察提升市场份额30%</h3>
+              <p class="mb-4 text-slate-600 dark:text-slate-300">详细解析该品牌如何利用社交媒体数据洞察消费者需求，重新定位产品...</p>
+              <a href="#"
+                class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
+                阅读全文 <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 text-center">
+          <a href="#" class="btn-secondary">
+            浏览更多内容
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA区域 -->
+    <section id="trial"
+      class="bg-primary-600 dark:bg-primary-900 section-fade animate-on-scroll px-4 py-24 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="lg:flex lg:items-center lg:justify-between">
+          <div class="mb-8 lg:mb-0 lg:w-1/2">
+            <h2 class="mb-4 text-3xl font-bold text-white">准备好转变您的数据分析方式了吗？</h2>
+            <p class="text-primary-100 mb-6 text-xl">注册14天免费试用，无需信用卡，发现Growthfy.ai如何帮助您从社交媒体中获取关键洞察。</p>
+            <div class="flex items-center space-x-4">
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-white"></i>
+                <span class="text-white">无需信用卡</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-white"></i>
+                <span class="text-white">全功能体验</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-white"></i>
+                <span class="text-white">专家支持</span>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-slate-200 pt-2 dark:border-slate-700">
+            <a href="#"
+              class="hover:text-primary-600 dark:hover:text-primary-400 block py-2 text-slate-600 transition-colors duration-200 dark:text-slate-300">登录</a>
+            <a href="#trial" class="btn-primary mt-2 block w-full text-center">免费试用</a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- FAQ区域 -->
+    <section class="section-fade animate-on-scroll px-4 py-20 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="mx-auto mb-16 max-w-3xl text-center">
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 dark:text-white">常见问题</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300">了解更多关于Growthfy.ai的信息</p>
+        </div>
+
+        <div class="mx-auto max-w-3xl">
+          <div class="space-y-4">
+            <!-- FAQ项目1 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">Growthfy.ai支持哪些社交媒体平台？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  Growthfy.ai支持几乎所有主流社交媒体平台，包括微博、微信、小红书、抖音、知乎、B站等国内平台，以及Twitter、Facebook、Instagram、LinkedIn、YouTube、TikTok等国际平台。我们不断扩展支持的平台范围，以确保全面覆盖您的目标受众。
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ项目2 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">数据更新频率如何？能否实时监控？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  基础版每日更新数据，专业版和企业版提供实时数据监控能力。对于重要事件或品牌危机，我们的系统会自动提高监控频率，确保您能及时获取关键信息并快速响应。
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ项目3 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">Growthfy.ai是否支持自定义关键词监控？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  是的，所有版本都支持自定义关键词监控。基础版支持最多20个关键词，专业版支持100个关键词，企业版支持无限关键词。此外，我们的AI系统会自动识别相关词汇和话题，确保您不会错过任何重要讨论。
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ项目4 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">需要多长时间才能看到有价值的洞察？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  在初始设置完成后，基本洞察通常在24-48小时内可用。随着系统持续收集和分析数据，洞察质量会不断提升。对于完整的趋势分析和预测，通常需要2-4周的数据积累，以确保结果的准确性和可靠性。
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ项目5 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">是否提供API接口供系统集成？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  是的，企业版提供完整的API接口，支持与您现有的数据系统、CRM、商业智能工具等无缝集成。我们提供详细的API文档和技术支持，确保集成过程顺利进行。专业版提供有限的API访问权限。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- FAQ区域 -->
+    <section class="section-fade animate-on-scroll px-4 py-20 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="mx-auto mb-16 max-w-3xl text-center">
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 dark:text-white">常见问题</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300">了解更多关于Growthfy.ai的信息</p>
+        </div>
+
+        <div class="mx-auto max-w-3xl">
+          <div class="space-y-4">
+            <!-- FAQ项目1 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">Growthfy.ai支持哪些社交媒体平台？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  Growthfy.ai支持几乎所有主流社交媒体平台，包括微博、微信、小红书、抖音、知乎、B站等国内平台，以及Twitter、Facebook、Instagram、LinkedIn、YouTube、TikTok等国际平台。我们不断扩展支持的平台范围，以确保全面覆盖您的目标受众。
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ项目2 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">数据更新频率如何？能否实时监控？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  基础版每日更新数据，专业版和企业版提供实时数据监控能力。对于重要事件或品牌危机，我们的系统会自动提高监控频率，确保您能及时获取关键信息并快速响应。
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ项目3 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">Growthfy.ai是否支持自定义关键词监控？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  是的，所有版本都支持自定义关键词监控。基础版支持最多20个关键词，专业版支持100个关键词，企业版支持无限关键词。此外，我们的AI系统会自动识别相关词汇和话题，确保您不会错过任何重要讨论。
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ项目4 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">需要多长时间才能看到有价值的洞察？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  在初始设置完成后，基本洞察通常在24-48小时内可用。随着系统持续收集和分析数据，洞察质量会不断提升。对于完整的趋势分析和预测，通常需要2-4周的数据积累，以确保结果的准确性和可靠性。
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ项目5 -->
+            <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                class="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50">
+                <span class="font-medium text-slate-900 dark:text-white">是否提供API接口供系统集成？</span>
+                <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400"></i>
+              </button>
+              <div class="dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700">
+                <p class="text-slate-600 dark:text-slate-300">
+                  是的，企业版提供完整的API接口，支持与您现有的数据系统、CRM、商业智能工具等无缝集成。我们提供详细的API文档和技术支持，确保集成过程顺利进行。专业版提供有限的API访问权限。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- 页脚 -->
+  <footer class="bg-slate-900 px-4 py-12 text-white sm:px-6 lg:px-8">
+    <div class="container mx-auto">
+      <div class="grid gap-8 md:grid-cols-4">
+        <!-- 公司信息 -->
+        <div>
+          <div class="mb-4 flex items-center">
+            <span class="text-2xl font-bold">Growthfy<span class="text-secondary-400">.ai</span></span>
+          </div>
+          <p class="mb-4 text-slate-300">
+            转化社媒噪声为增长洞察，让数据驱动决策不再复杂。
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-slate-300 transition-colors hover:text-white">
+              <i class="fab fa-weibo"></i>
+            </a>
+            <a href="#" class="text-slate-300 transition-colors hover:text-white">
+              <i class="fab fa-weixin"></i>
+            </a>
+            <a href="#" class="text-slate-300 transition-colors hover:text-white">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="text-slate-300 transition-colors hover:text-white">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 产品 -->
+        <div>
+          <h4 class="mb-4 text-lg font-medium">产品</h4>
+          <ul class="space-y-2">
+            <li><a href="#features" class="text-slate-300 transition-colors hover:text-white">功能</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">产品更新</a></li>
+            <li><a href="#pricing" class="text-slate-300 transition-colors hover:text-white">定价</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">集成</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">API文档</a></li>
+          </ul>
+        </div>
+
+        <!-- 公司 -->
+        <div>
+          <h4 class="mb-4 text-lg font-medium">公司</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">关于我们</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">客户案例</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">合作伙伴</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">招贤纳士</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">联系我们</a></li>
+          </ul>
+        </div>
+
+        <!-- 资源与联系 -->
+        <div>
+          <h4 class="mb-4 text-lg font-medium">资源</h4>
+          <ul class="space-y-2">
+            <li><a href="#blog" class="text-slate-300 transition-colors hover:text-white">博客</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">指南与教程</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">网络研讨会</a></li>
+            <li><a href="#" class="text-slate-300 transition-colors hover:text-white">帮助中心</a></li>
+          </ul>
+
+          <div class="mt-6">
+            <h4 class="mb-4 text-lg font-medium">订阅更新</h4>
+            <form class="flex">
+              <input type="email" placeholder="您的邮箱"
+                class="focus:ring-primary-500 rounded-l-lg border border-slate-700 bg-slate-800 px-4 py-2 text-white focus:outline-none focus:ring-1">
+              <button type="submit"
+                class="bg-primary-600 hover:bg-primary-700 rounded-r-lg px-4 py-2 text-white transition-colors">
+                订阅
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 flex flex-col items-center justify-between border-t border-slate-800 pt-8 md:flex-row">
+        <p class="text-slate-400">© 2025 Growthfy.ai 版权所有</p>
+        <div class="mt-4 flex space-x-6 md:mt-0">
+          <a href="#" class="text-slate-400 transition-colors hover:text-white">隐私政策</a>
+          <a href="#" class="text-slate-400 transition-colors hover:text-white">服务条款</a>
+          <a href="#" class="text-slate-400 transition-colors hover:text-white">Cookie政策</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- JavaScript -->
+  <script>
+    // 深色模式切换
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    const htmlElement = document.documentElement;
+
+    // 检查系统偏好
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      htmlElement.classList.add('dark');
+    }
+
+    // 桌面端切换
+    themeToggle.addEventListener('click', function () {
+      htmlElement.classList.toggle('dark');
+    });
+
+    // 移动端切换
+    themeToggleMobile.addEventListener('click', function () {
+      htmlElement.classList.toggle('dark');
+    });
+
+    // 移动端菜单
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', function () {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 滚动动画
+    document.addEventListener('DOMContentLoaded', function () {
+      const fadeElements = document.querySelectorAll('.section-fade');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-on-scroll');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      fadeElements.forEach(element => {
+        observer.observe(element);
+      });
+    });
+  </script>
+</body>
+
+</html>

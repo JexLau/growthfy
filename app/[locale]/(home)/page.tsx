@@ -1,6 +1,29 @@
 import React from "react";
-import { HomePageClient } from "./(components)/client";
+import {
+  Hero,
+  TrustedBy,
+  Features,
+  HowItWorks,
+  Solutions,
+  CaseStudies,
+  Pricing,
+  Blog,
+  CTA,
+  FAQ,
+} from '@/components/home';
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  return <HomePageClient locale={locale} />;
+  return <main>
+    <Hero />
+    <TrustedBy />
+    <Features />
+    <HowItWorks />
+    <Solutions />
+    <CaseStudies />
+    <Pricing />
+    <Blog />
+    <CTA />
+    <FAQ />
+  </main>
 }
+

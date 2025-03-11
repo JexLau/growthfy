@@ -1,8 +1,10 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { locales, Locale } from '@/i18n';
-import { Navbar } from '@/components/ui/navbar';
-import { Footer } from '@/components/ui/footer';
+import {
+  Navbar,
+  Footer
+} from '@/components/home';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 
 export default async function LocaleLayout({
@@ -23,11 +25,14 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <div className="flex min-h-screen flex-col">
+      <div className="min-h-screen bg-white transition-colors duration-300 dark:bg-dark-200">
         <Navbar />
-        <main className="flex-1 pt-16">{children}</main>
+        {children}
         <Footer />
       </div>
     </NextIntlClientProvider>
   );
-} 
+}
+
+
+
