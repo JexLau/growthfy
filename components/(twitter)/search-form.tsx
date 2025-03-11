@@ -4,13 +4,12 @@ import { TwitterSearchParams } from '@/types/twitter';
 
 interface TwitterSearchFormProps {
   onSearch: (params: TwitterSearchParams) => void;
-  loading?: boolean;
   initialParams?: Partial<TwitterSearchParams>;
+  loading?: boolean;
 }
 
 export function TwitterSearchForm({
   onSearch,
-  loading = false,
   initialParams = {}
 }: TwitterSearchFormProps) {
   const [params, setParams] = useState<TwitterSearchParams>({
