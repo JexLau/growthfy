@@ -126,14 +126,6 @@ const Footer = () => {
                   href="#"
                   className="text-slate-300 transition-colors hover:text-white"
                 >
-                  招贤纳士
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-slate-300 transition-colors hover:text-white"
-                >
                   联系我们
                 </Link>
               </li>
@@ -141,7 +133,7 @@ const Footer = () => {
           </div>
 
           {/* 资源与联系 */}
-          <div>
+          {/* <div>
             <h4 className="mb-4 text-lg font-medium">资源</h4>
             <ul className="space-y-2">
               <li>
@@ -184,17 +176,17 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="您的邮箱"
-                  className="focus:ring-primary-500 rounded-l-lg border border-slate-700 bg-slate-800 px-4 py-2 text-white focus:outline-none focus:ring-1"
+                  className="rounded-l-lg border border-slate-700 bg-slate-800 px-4 py-2 text-white focus:outline-none focus:ring-1 focus:ring-primary-500"
                 />
                 <button
                   type="submit"
-                  className="bg-primary-600 hover:bg-primary-700 rounded-r-lg px-4 py-2 text-white transition-colors"
+                  className="rounded-r-lg bg-primary-600 px-4 py-2 text-white transition-colors hover:bg-primary-700"
                 >
                   订阅
                 </button>
               </form>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between border-t border-slate-800 pt-8 md:flex-row">

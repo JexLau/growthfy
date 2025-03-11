@@ -14,6 +14,7 @@ interface TwitterSearchParams {
   mediaType?: 'images' | 'videos' | 'links' | 'all';
   language?: string;
   sortBy?: 'relevance' | 'recency';
+  next_token?: string;
 }
 
 /**
@@ -81,6 +82,7 @@ export async function GET(request: NextRequest) {
     // 获取查询参数
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('query');
+    const nextToken = searchParams.get('next_token');
 
     // 检查必要参数
     if (!query) {
@@ -109,27 +111,37 @@ export async function GET(request: NextRequest) {
       mediaType: searchParams.get('mediaType') as TwitterSearchParams['mediaType'] || undefined,
       language: searchParams.get('language') || undefined,
       sortBy: searchParams.get('sortBy') as TwitterSearchParams['sortBy'] || 'recency',
+      next_token: nextToken || undefined
     };
 
     // 构建查询字符串
     const socialDataQuery = buildSocialDataQuery(params);
 
     // 请求 socialdata API
-    const response = await fetch(`${SOCIALDATA_BASE_URL}/search`, {
-      method: 'POST',
+    const url = new URL(`${SOCIALDATA_BASE_URL}/search`);
+    url.searchParams.append('query', query.replace(/\n\s+/g, ' ')); // 压缩查询格式
+    url.searchParams.append('type', 'Latest');
+    url.searchParams.append('sort_by', 'engagement');  // 新增排序参数
+    url.searchParams.append('limit', params.limit?.toString() || '10');
+    if (nextToken) {
+      url.searchParams.append('max_id', nextToken);
+    }
+    const response = await fetch(url, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${SOCIALDATA_API_KEY}`
       },
-      body: JSON.stringify({
-        query: socialDataQuery,
-        limit: params.limit,
-        sort_by: params.sortBy
-      })
+      // body: JSON.stringify({
+      //   query: socialDataQuery,
+      //   limit: params.limit,
+      //   sort_by: params.sortBy
+      // })
     });
 
     // 处理响应
-    if (!response.ok) {
+    if (!response?.ok) {
+      console.log('response', response);
       const errorData = await response.json();
       return NextResponse.json(
         { error: 'Error from socialdata API', details: errorData },
@@ -138,7 +150,32 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+    
+    // 记录API返回的原始数据结构
+    console.log('社交数据API返回结构:', JSON.stringify({
+      keys: Object.keys(data),
+      hasStatuses: !!data.statuses,
+      hasTweets: !!data.tweets,
+      hasResults: !!data.results,
+      sampleData: data.tweets?.[0] || data.results?.[0] || data.statuses?.[0] || null
+    }, null, 2));
+    
+    // 转换数据格式为TwitterSearchResponse
+    const formattedResponse = {
+      statuses: data.tweets || data.results || data.statuses || [],
+      search_metadata: {
+        completed_in: data.search_metadata?.completed_in || 0,
+        max_id: parseInt(data.search_metadata?.max_id_str || '0'),
+        max_id_str: data.search_metadata?.max_id_str || '0',
+        next_results: data.search_metadata?.next_results,
+        query: query,
+        count: params.limit || 10,
+        since_id: parseInt(data.search_metadata?.since_id_str || '0'),
+        since_id_str: data.search_metadata?.since_id_str || '0'
+      }
+    };
+    
+    return NextResponse.json(formattedResponse);
 
   } catch (error) {
     console.error('Twitter search API error:', error);
@@ -181,6 +218,7 @@ export async function POST(request: NextRequest) {
       mediaType: body.mediaType,
       language: body.language,
       sortBy: body.sortBy || 'recency',
+      next_token: body.next_token
     };
 
     // 构建查询字符串
@@ -196,7 +234,8 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         query: socialDataQuery,
         limit: params.limit,
-        sort_by: params.sortBy
+        sort_by: params.sortBy,
+        max_id: params.next_token
       })
     });
 
@@ -210,7 +249,32 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+    
+    // 记录API返回的原始数据结构
+    console.log('社交数据API返回结构:', JSON.stringify({
+      keys: Object.keys(data),
+      hasStatuses: !!data.statuses,
+      hasTweets: !!data.tweets,
+      hasResults: !!data.results,
+      sampleData: data.tweets?.[0] || data.results?.[0] || data.statuses?.[0] || null
+    }, null, 2));
+    
+    // 转换数据格式为TwitterSearchResponse
+    const formattedResponse = {
+      statuses: data.tweets || data.results || data.statuses || [],
+      search_metadata: {
+        completed_in: data.search_metadata?.completed_in || 0,
+        max_id: parseInt(data.search_metadata?.max_id_str || '0'),
+        max_id_str: data.search_metadata?.max_id_str || '0',
+        next_results: data.search_metadata?.next_results,
+        query: body.query,
+        count: params.limit || 10,
+        since_id: parseInt(data.search_metadata?.since_id_str || '0'),
+        since_id_str: data.search_metadata?.since_id_str || '0'
+      }
+    };
+    
+    return NextResponse.json(formattedResponse);
 
   } catch (error) {
     console.error('Twitter search API error:', error);

@@ -1,3 +1,4 @@
+// 暂时废弃，API不支持。
 import { useState, useEffect } from 'react';
 
 interface TwitterTrend {

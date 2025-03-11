@@ -4,9 +4,7 @@
 import React, { useState } from 'react';
 import { TwitterSearchForm } from '@/components/(twitter)/search-form';
 import { TwitterSearchResults } from '@/components/(twitter)/search-results';
-import { TwitterTrendsList } from '@/components/(twitter)/trends-list';
 import { useTwitterSearch } from '@/hooks/use-twitter-search';
-import { useTwitterTrends } from '@/hooks/use-twitter-trends';
 
 export default function TwitterSearchPage() {
   const [loadingMore, setLoadingMore] = useState(false);
@@ -21,17 +19,19 @@ export default function TwitterSearchPage() {
     loadMore
   } = useTwitterSearch();
 
-  // 使用 Twitter 趋势 Hook
-  const {
-    trends,
-    loading: trendsLoading,
-    error: trendsError
-  } = useTwitterTrends();
+  // 记录数据，帮助调试
+  console.log('Twitter页面数据:', {
+    hasData: !!data,
+    statuses: data?.statuses?.length || 0,
+    loading,
+    error: error?.message,
+    hasMore
+  });
 
   // 处理趋势点击
-  const handleTrendClick = (query: string) => {
-    search({ query });
-  };
+  // const handleTrendClick = (query: string) => {
+  //   search({ query });
+  // };
 
   // 处理加载更多
   const handleLoadMore = async () => {
@@ -52,34 +52,24 @@ export default function TwitterSearchPage() {
         </div>
 
         <div className="mt-6">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-1">
             {/* 搜索表单和结果 */}
             <div className="space-y-6 lg:col-span-2">
               <TwitterSearchForm onSearch={search} loading={loading} />
-              {/* <TwitterSearchResults 
-                data={data} 
-                loading={loading} 
-                error={error} 
-                hasMore={hasMore} 
-                loadMore={handleLoadMore}
-                loadingMore={loadingMore}
-              /> */}
-
               <TwitterSearchResults
                 searchParams={{ query: '' }}
                 onChangeParams={search}
+                data={data}
+                error={error}
+                loading={loading}
+                hasMore={hasMore}
+                loadMore={handleLoadMore}
               />
             </div>
 
             {/* 侧边栏 */}
-            <div className="space-y-6">
-              <TwitterTrendsList
-                trends={trends}
-                loading={trendsLoading}
-                onSelectTrend={handleTrendClick}
-              />
-
-              {/* 搜索帮助卡片 */}
+            {/* 搜索帮助卡片 */}
+            {/* <div className="space-y-6">
               <div className="rounded-lg bg-white p-4 shadow dark:bg-gray-800">
                 <h3 className="mb-3 text-lg font-medium text-gray-900 dark:text-white">搜索技巧</h3>
                 <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
@@ -93,7 +83,7 @@ export default function TwitterSearchPage() {
                   <li><code>min_faves:100</code> - 查找至少有100个赞的推文</li>
                 </ul>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

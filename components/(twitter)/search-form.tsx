@@ -212,6 +212,9 @@ export function TwitterSearchForm({
           </div>
         </div>
       </div>
+      <button type="submit" className="w-full rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+        搜索
+      </button>
     </form>
   );
 }

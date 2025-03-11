@@ -20,13 +20,13 @@ const Navbar = () => {
   };
 
   return (
-    <header className="dark:bg-dark-200/80 sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-sm dark:border-slate-700">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-sm dark:border-slate-700 dark:bg-dark-200/80">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <span className="text-primary-600 dark:text-primary-400 text-2xl font-bold">
+              <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
                 Growthfy<span className="text-secondary-600 dark:text-secondary-400">.ai</span>
               </span>
             </Link>
@@ -34,19 +34,19 @@ const Navbar = () => {
 
           {/* 主导航 - 桌面端 */}
           <nav className="hidden space-x-8 md:flex">
-            <Link href="#features" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#features" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               产品
             </Link>
-            <Link href="#solutions" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#solutions" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               解决方案
             </Link>
-            <Link href="#pricing" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#pricing" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               定价
             </Link>
-            <Link href="#resources" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#resources" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               资源
             </Link>
-            <Link href="#blog" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#blog" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               博客
             </Link>
           </nav>
@@ -56,15 +56,15 @@ const Navbar = () => {
             {mounted && (
               <button
                 onClick={toggleTheme}
-                className="hover:text-primary-600 dark:hover:text-primary-400 rounded-full p-2 text-slate-600 focus:outline-none dark:text-slate-300"
+                className="rounded-full p-2 text-slate-600 hover:text-primary-600 focus:outline-none dark:text-slate-300 dark:hover:text-primary-400"
               >
                 {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             )}
-            <Link href="/login" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="/login" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               登录
             </Link>
-            <Link href="#trial" className="btn-primary">
+            <Link href="/twitter" className="btn-primary">
               <span>免费试用</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,14 +89,14 @@ const Navbar = () => {
             {mounted && (
               <button
                 onClick={toggleTheme}
-                className="hover:text-primary-600 dark:hover:text-primary-400 mr-2 rounded-full p-2 text-slate-600 focus:outline-none dark:text-slate-300"
+                className="mr-2 rounded-full p-2 text-slate-600 hover:text-primary-600 focus:outline-none dark:text-slate-300 dark:hover:text-primary-400"
               >
                 {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="hover:text-primary-600 dark:hover:text-primary-400 rounded-md p-2 text-slate-600 focus:outline-none dark:text-slate-300"
+              className="rounded-md p-2 text-slate-600 hover:text-primary-600 focus:outline-none dark:text-slate-300 dark:hover:text-primary-400"
             >
               <Menu size={24} />
             </button>
@@ -110,23 +110,23 @@ const Navbar = () => {
           }`}
         >
           <div className="flex flex-col space-y-4">
-            <Link href="#features" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#features" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               产品
             </Link>
-            <Link href="#solutions" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#solutions" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               解决方案
             </Link>
-            <Link href="#pricing" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#pricing" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               定价
             </Link>
-            <Link href="#resources" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#resources" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               资源
             </Link>
-            <Link href="#blog" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+            <Link href="#blog" className="text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
               博客
             </Link>
             <div className="border-t border-slate-200 pt-2 dark:border-slate-700">
-              <Link href="/login" className="hover:text-primary-600 dark:hover:text-primary-400 block py-2 text-slate-600 transition-colors duration-200 dark:text-slate-300">
+              <Link href="/login" className="block py-2 text-slate-600 transition-colors duration-200 hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-400">
                 登录
               </Link>
               <Link href="#trial" className="btn-primary mt-2 block w-full text-center">

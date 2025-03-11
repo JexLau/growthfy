@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { TwitterTweet, TwitterSearchParams } from "@/types/twitter";
+import { TwitterTweet, TwitterSearchParams, TwitterSearchResponse } from "@/types/twitter";
 import { TwitterTweetCard } from "./tweet-card";
 import { useTwitterSearch } from "@/hooks/use-twitter-search";
 import { useInView } from "react-intersection-observer";
@@ -20,21 +20,18 @@ interface TwitterSearchResultsProps {
 export const TwitterSearchResults = ({
   searchParams,
   onChangeParams,
-}: TwitterSearchResultsProps) => {
-  // 使用自定义Hook
-  const {
-    data,
-    error,
-    loading,
-    hasMore,
-    loadMore,
-    // isLoading, 
-    // fetchNextPage, 
-    // hasNextPage, 
-    // isFetchingNextPage,
-    // pages
-  } = useTwitterSearch({ initialParams: searchParams });
-
+  data,
+  error,
+  loading,
+  hasMore,
+  loadMore
+}: TwitterSearchResultsProps & {
+  data: TwitterSearchResponse | null;
+  error: Error | null;
+  loading: boolean;
+  hasMore: boolean;
+  loadMore: () => Promise<void>;
+}) => {
   const [activeView, setActiveView] = useState<"list" | "analytics">("list");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<"latest" | "popular">(
@@ -57,6 +54,78 @@ export const TwitterSearchResults = ({
 
   // 扁平化所有推文数据
   const tweets = data?.statuses || [];
+  console.log('tweets', data);
+
+  // 数据分析函数
+  // 处理热门话题分析
+  const getTopHashtags = () => {
+    if (!data?.statuses || data.statuses.length === 0) return [];
+    
+    // 收集所有标签
+    const hashtagsCounter: Record<string, number> = {};
+    data.statuses.forEach(tweet => {
+      tweet.entities?.hashtags?.forEach(tag => {
+        const hashtag = tag.text.toLowerCase();
+        hashtagsCounter[hashtag] = (hashtagsCounter[hashtag] || 0) + 1;
+      });
+    });
+    
+    // 转换为数组并排序
+    return Object.entries(hashtagsCounter)
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10); // 取前10个
+  };
+
+  // 简单情感分析
+  const getSentimentAnalysis = () => {
+    if (!data?.statuses || data.statuses.length === 0) 
+      return { positive: 0, neutral: 0, negative: 0 };
+    
+    // 简单词汇匹配的情感分析
+    const positiveWords = ['好', '棒', '喜欢', '赞', '开心', 'good', 'great', 'like', 'love', 'happy'];
+    const negativeWords = ['差', '糟', '讨厌', '烦', '失望', 'bad', 'hate', 'dislike', 'sad', 'disappointed'];
+    
+    let positive = 0, negative = 0, neutral = 0;
+    
+    data.statuses.forEach(tweet => {
+      const text = tweet.full_text || tweet.text || '';
+      const textLower = text.toLowerCase();
+      
+      let isPositive = positiveWords.some(word => textLower.includes(word));
+      let isNegative = negativeWords.some(word => textLower.includes(word));
+      
+      if (isPositive && !isNegative) positive++;
+      else if (isNegative && !isPositive) negative++;
+      else neutral++;
+    });
+    
+    return { positive, neutral, negative };
+  };
+
+  // 互动统计
+  const getEngagementStats = () => {
+    if (!data?.statuses || data.statuses.length === 0)
+      return { avgRetweets: 0, avgLikes: 0, avgReplies: 0, totalTweets: 0 };
+    
+    const total = data.statuses.length;
+    const totalRetweets = data.statuses.reduce((sum, tweet) => sum + (tweet.retweet_count || 0), 0);
+    const totalLikes = data.statuses.reduce((sum, tweet) => sum + (tweet.favorite_count || 0), 0);
+    const totalReplies = data.statuses.reduce((sum, tweet) => sum + (tweet.reply_count || 0), 0);
+    
+    return {
+      avgRetweets: Math.round(totalRetweets / total),
+      avgLikes: Math.round(totalLikes / total),
+      avgReplies: Math.round(totalReplies / total),
+      totalTweets: total
+    };
+  };
+
+  // 获取分析数据
+  const topHashtags = getTopHashtags();
+  const sentimentData = getSentimentAnalysis();
+  const engagementStats = getEngagementStats();
+  const hasAnalyticsData = tweets.length > 0;
 
   // 回到顶部
   const scrollToTop = () => {
@@ -263,53 +332,113 @@ export const TwitterSearchResults = ({
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white">数据分析</h3>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {/* 热门话题分析 */}
-                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-dark-200">
-                    <h4 className="mb-3 text-base font-medium text-slate-800 dark:text-slate-200">热门话题</h4>
-                    <div className="space-y-2">
-                      {loading ? (
-                        Array(5).fill(0).map((_, i) => (
-                          <Skeleton key={i} className="h-6 w-full" />
-                        ))
+                {loading && tweets.length === 0 ? (
+                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {[...Array(3)].map((_, i) => (
+                      <div key={i} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-dark-200">
+                        <Skeleton className="mb-3 h-6 w-1/3" />
+                        <div className="space-y-2">
+                          <Skeleton className="h-32 w-full" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : !hasAnalyticsData ? (
+                  <div className="rounded-xl border border-slate-200 p-6 text-center">
+                    <EmptyState
+                      icon="BarChart2"
+                      title="暂无分析数据"
+                      description="请先进行搜索以获取数据进行分析"
+                    />
+                  </div>
+                ) : (
+                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {/* 热门话题分析 */}
+                    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-dark-200">
+                      <h4 className="mb-3 text-base font-medium text-slate-800 dark:text-slate-200">热门话题</h4>
+                      {topHashtags.length > 0 ? (
+                        <div className="space-y-2">
+                          {topHashtags.map(({tag, count}) => (
+                            <div key={tag} className="flex items-center justify-between">
+                              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">#{tag}</span>
+                              <span className="rounded-full bg-slate-200 px-2 py-0.5 text-xs font-medium dark:bg-slate-600">{count}</span>
+                            </div>
+                          ))}
+                        </div>
                       ) : (
                         <div className="text-center text-sm text-slate-500 dark:text-slate-400">
-                          请先收集更多数据以查看话题分析
+                          未发现标签数据
                         </div>
                       )}
                     </div>
-                  </div>
 
-                  {/* 情感分析 */}
-                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-dark-200">
-                    <h4 className="mb-3 text-base font-medium text-slate-800 dark:text-slate-200">情感分析</h4>
-                    <div className="space-y-2">
-                      {loading ? (
-                        <Skeleton className="h-32 w-full" />
-                      ) : (
-                        <div className="text-center text-sm text-slate-500 dark:text-slate-400">
-                          请先收集更多数据以查看情感分析
+                    {/* 情感分析 */}
+                    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-dark-200">
+                      <h4 className="mb-3 text-base font-medium text-slate-800 dark:text-slate-200">情感分析</h4>
+                      <div className="space-y-3">
+                        <div>
+                          <div className="mb-1 flex items-center justify-between">
+                            <span className="text-sm text-slate-700 dark:text-slate-300">积极</span>
+                            <span className="text-sm font-medium text-green-600">{sentimentData.positive} 条</span>
+                          </div>
+                          <div className="h-2.5 w-full rounded-full bg-slate-200 dark:bg-slate-600">
+                            <div 
+                              className="h-2.5 rounded-full bg-green-500" 
+                              style={{ width: `${tweets.length ? (sentimentData.positive / tweets.length) * 100 : 0}%` }}
+                            ></div>
+                          </div>
                         </div>
-                      )}
+                        <div>
+                          <div className="mb-1 flex items-center justify-between">
+                            <span className="text-sm text-slate-700 dark:text-slate-300">中立</span>
+                            <span className="text-sm font-medium text-blue-600">{sentimentData.neutral} 条</span>
+                          </div>
+                          <div className="h-2.5 w-full rounded-full bg-slate-200 dark:bg-slate-600">
+                            <div 
+                              className="h-2.5 rounded-full bg-blue-500" 
+                              style={{ width: `${tweets.length ? (sentimentData.neutral / tweets.length) * 100 : 0}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="mb-1 flex items-center justify-between">
+                            <span className="text-sm text-slate-700 dark:text-slate-300">消极</span>
+                            <span className="text-sm font-medium text-red-600">{sentimentData.negative} 条</span>
+                          </div>
+                          <div className="h-2.5 w-full rounded-full bg-slate-200 dark:bg-slate-600">
+                            <div 
+                              className="h-2.5 rounded-full bg-red-500" 
+                              style={{ width: `${tweets.length ? (sentimentData.negative / tweets.length) * 100 : 0}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* 互动统计 */}
-                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-dark-200">
-                    <h4 className="mb-3 text-base font-medium text-slate-800 dark:text-slate-200">互动统计</h4>
-                    <div className="space-y-2">
-                      {loading ? (
-                        Array(3).fill(0).map((_, i) => (
-                          <Skeleton key={i} className="h-8 w-full" />
-                        ))
-                      ) : (
-                        <div className="text-center text-sm text-slate-500 dark:text-slate-400">
-                          请先收集更多数据以查看互动统计
+                    {/* 互动统计 */}
+                    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-dark-200">
+                      <h4 className="mb-3 text-base font-medium text-slate-800 dark:text-slate-200">互动统计</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between rounded-lg bg-slate-100 p-3 dark:bg-slate-700">
+                          <span className="text-sm font-medium text-slate-700 dark:text-slate-300">总推文数</span>
+                          <span className="text-sm font-bold text-slate-900 dark:text-white">{engagementStats.totalTweets}</span>
                         </div>
-                      )}
+                        <div className="flex items-center justify-between rounded-lg bg-slate-100 p-3 dark:bg-slate-700">
+                          <span className="text-sm font-medium text-slate-700 dark:text-slate-300">平均转发数</span>
+                          <span className="text-sm font-bold text-slate-900 dark:text-white">{engagementStats.avgRetweets}</span>
+                        </div>
+                        <div className="flex items-center justify-between rounded-lg bg-slate-100 p-3 dark:bg-slate-700">
+                          <span className="text-sm font-medium text-slate-700 dark:text-slate-300">平均点赞数</span>
+                          <span className="text-sm font-bold text-slate-900 dark:text-white">{engagementStats.avgLikes}</span>
+                        </div>
+                        <div className="flex items-center justify-between rounded-lg bg-slate-100 p-3 dark:bg-slate-700">
+                          <span className="text-sm font-medium text-slate-700 dark:text-slate-300">平均回复数</span>
+                          <span className="text-sm font-bold text-slate-900 dark:text-white">{engagementStats.avgReplies}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </TabsContent>
           </div>
