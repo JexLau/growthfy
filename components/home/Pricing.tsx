@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import Link from "next/link";
+import { Check, ArrowRight } from "lucide-react";
 
 interface PricingFeature {
   text: string;
@@ -75,7 +76,7 @@ const PricingCard = ({
         <ul className="space-y-3">
           {tier.features.map((feature, index) => (
             <li key={index} className="flex items-start">
-              <i className="fas fa-check text-secondary-500 mr-2 mt-1"></i>
+              <Check className="text-secondary-500 mr-2 mt-1" size={16} />
               <span className="text-slate-600 dark:text-slate-300">
                 {feature.text}
               </span>
@@ -207,7 +208,7 @@ const Pricing = () => {
             href="/pricing"
             className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors"
           >
-            查看完整定价对比 <i className="fas fa-arrow-right ml-1"></i>
+            查看完整定价对比 <ArrowRight className="ml-1 inline" size={16} />
           </Link>
         </div>
       </div>

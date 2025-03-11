@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import Link from "next/link";
+import { Play, ArrowRight } from "lucide-react";
 
 const CaseStudyCard = ({
   industry,
@@ -20,7 +21,7 @@ const CaseStudyCard = ({
     <div className="dark:bg-dark-200 overflow-hidden rounded-xl bg-white shadow-sm transition-shadow hover:shadow-md">
       <div className="relative aspect-video bg-slate-200 dark:bg-slate-700">
         <div className="absolute inset-0 flex items-center justify-center">
-          <i className="fas fa-play-circle text-4xl text-white opacity-80"></i>
+          <Play className="text-white opacity-80" size={48} />
         </div>
       </div>
       <div className="p-6">
@@ -40,9 +41,9 @@ const CaseStudyCard = ({
           </div>
           <Link
             href="/case-studies"
-            className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors"
+            className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors flex items-center"
           >
-            查看完整案例 <i className="fas fa-arrow-right ml-1"></i>
+            查看完整案例 <ArrowRight className="ml-1" size={16} />
           </Link>
         </div>
       </div>

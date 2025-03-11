@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight, ChevronDown } from "lucide-react";
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -50,11 +51,11 @@ const Hero = () => {
             <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
               <Link href="#trial" className="btn-primary">
                 <span>免费开始</span>
-                <i className="fas fa-arrow-right ml-2"></i>
+                <ArrowRight className="ml-2" size={18} />
               </Link>
               <Link href="#features" className="btn-secondary">
                 <span>了解更多</span>
-                <i className="fas fa-chevron-down ml-2"></i>
+                <ChevronDown className="ml-2" size={18} />
               </Link>
             </div>
           </div>

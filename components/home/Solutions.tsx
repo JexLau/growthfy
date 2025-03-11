@@ -2,6 +2,23 @@
 
 import { useRef, useEffect } from "react";
 import Link from "next/link";
+import { Megaphone, Package, Briefcase, ArrowRight } from "lucide-react";
+
+// 创建一个图标映射函数
+const IconComponent = ({ name, className, size = 48 }: { name: string, className?: string, size?: number }) => {
+  const iconProps = { className, size };
+  
+  switch (name) {
+    case "megaphone":
+      return <Megaphone {...iconProps} />;
+    case "package":
+      return <Package {...iconProps} />;
+    case "briefcase":
+      return <Briefcase {...iconProps} />;
+    default:
+      return <Megaphone {...iconProps} />;
+  }
+};
 
 const SolutionCard = ({
   icon,
@@ -22,7 +39,7 @@ const SolutionCard = ({
     <div className="dark:bg-dark-100 card-hover overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700">
       <div className={`${bgColor} relative h-40`}>
         <div className="absolute inset-0 flex items-center justify-center">
-          <i className={`${icon} text-5xl text-white`}></i>
+          <IconComponent name={icon} className="text-white" />
         </div>
       </div>
       <div className="p-6">
@@ -49,9 +66,9 @@ const SolutionCard = ({
         </div>
         <Link
           href="/solutions"
-          className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors"
+          className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors flex items-center"
         >
-          了解更多 <i className="fas fa-arrow-right ml-1"></i>
+          了解更多 <ArrowRight className="ml-1" size={16} />
         </Link>
       </div>
     </div>
@@ -103,7 +120,7 @@ const Solutions = () => {
 
         <div className="grid gap-8 md:grid-cols-3">
           <SolutionCard
-            icon="fas fa-bullhorn"
+            icon="megaphone"
             title="市场营销团队"
             bgColor="bg-primary-600 dark:bg-primary-800"
             pain="难以实时把握消费者情绪变化，营销活动效果评估滞后"
@@ -112,7 +129,7 @@ const Solutions = () => {
           />
 
           <SolutionCard
-            icon="fas fa-box"
+            icon="package"
             title="产品团队"
             bgColor="bg-secondary-600 dark:bg-secondary-800"
             pain="用户反馈收集分散且低效，难以识别真正的产品改进方向"
@@ -121,7 +138,7 @@ const Solutions = () => {
           />
 
           <SolutionCard
-            icon="fas fa-briefcase"
+            icon="briefcase"
             title="企业决策层"
             bgColor="bg-slate-700 dark:bg-slate-800"
             pain="市场趋势把握不及时，战略决策缺乏数据支撑"

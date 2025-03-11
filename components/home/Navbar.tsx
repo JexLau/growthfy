@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { Moon, Sun, Menu } from "lucide-react";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -57,8 +58,7 @@ const Navbar = () => {
                 onClick={toggleTheme}
                 className="hover:text-primary-600 dark:hover:text-primary-400 rounded-full p-2 text-slate-600 focus:outline-none dark:text-slate-300"
               >
-                <i className="fas fa-moon dark:hidden"></i>
-                <i className="fas fa-sun hidden dark:inline"></i>
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             )}
             <Link href="/login" className="hover:text-primary-600 dark:hover:text-primary-400 text-slate-600 transition-colors duration-200 dark:text-slate-300">
@@ -66,7 +66,21 @@ const Navbar = () => {
             </Link>
             <Link href="#trial" className="btn-primary">
               <span>免费试用</span>
-              <i className="fas fa-arrow-right ml-2"></i>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="ml-2"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
             </Link>
           </div>
 
@@ -77,15 +91,14 @@ const Navbar = () => {
                 onClick={toggleTheme}
                 className="hover:text-primary-600 dark:hover:text-primary-400 mr-2 rounded-full p-2 text-slate-600 focus:outline-none dark:text-slate-300"
               >
-                <i className="fas fa-moon dark:hidden"></i>
-                <i className="fas fa-sun hidden dark:inline"></i>
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="hover:text-primary-600 dark:hover:text-primary-400 rounded-md p-2 text-slate-600 focus:outline-none dark:text-slate-300"
             >
-              <i className="fas fa-bars text-xl"></i>
+              <Menu size={24} />
             </button>
           </div>
         </div>

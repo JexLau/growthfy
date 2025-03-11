@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
 
 interface FAQItem {
   question: string;
@@ -14,14 +15,15 @@ const FAQAccordion = ({ faq, index }: { faq: FAQItem; index: number }) => {
     <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50 dark:bg-dark-100 dark:hover:bg-dark-200"
+        className="dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50"
       >
         <span className="font-medium text-slate-900 dark:text-white">{faq.question}</span>
-        <i
-          className={`fas fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform ${
+        <ChevronDown
+          className={`text-slate-500 dark:text-slate-400 transition-transform ${
             isOpen ? "rotate-180" : ""
           }`}
-        ></i>
+          size={20}
+        />
       </button>
       <div
         className={`dark:bg-dark-200 border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-700 ${

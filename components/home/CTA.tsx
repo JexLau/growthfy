@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import Link from "next/link";
+import { CheckCircle } from "lucide-react";
 
 const CTA = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -47,15 +48,15 @@ const CTA = () => {
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <div className="flex items-center">
-                <i className="fas fa-check-circle mr-2 text-white"></i>
+                <CheckCircle className="mr-2 text-white" size={20} />
                 <span className="text-white">无需信用卡</span>
               </div>
               <div className="flex items-center">
-                <i className="fas fa-check-circle mr-2 text-white"></i>
+                <CheckCircle className="mr-2 text-white" size={20} />
                 <span className="text-white">全功能体验</span>
               </div>
               <div className="flex items-center">
-                <i className="fas fa-check-circle mr-2 text-white"></i>
+                <CheckCircle className="mr-2 text-white" size={20} />
                 <span className="text-white">专家支持</span>
               </div>
             </div>

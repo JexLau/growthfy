@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { MessageSquare, Linkedin, Twitter, Github } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -22,25 +23,25 @@ const Footer = () => {
                 href="#"
                 className="text-slate-300 transition-colors hover:text-white"
               >
-                <i className="fab fa-weibo"></i>
+                <Github size={20} />
               </a>
               <a
                 href="#"
                 className="text-slate-300 transition-colors hover:text-white"
               >
-                <i className="fab fa-weixin"></i>
+                <MessageSquare size={20} />
               </a>
               <a
                 href="#"
                 className="text-slate-300 transition-colors hover:text-white"
               >
-                <i className="fab fa-linkedin"></i>
+                <Linkedin size={20} />
               </a>
               <a
                 href="#"
                 className="text-slate-300 transition-colors hover:text-white"
               >
-                <i className="fab fa-twitter"></i>
+                <Twitter size={20} />
               </a>
             </div>
           </div>

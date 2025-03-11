@@ -7,6 +7,6 @@ export const Umami = () => {
   }
   
   return <>
-    <Script async src="https://aibrower.com/script.js" data-website-id="fd8bc2f2-cdb7-46cd-b882-e02fe7af5db9"></Script>
+    <Script async src="https://aibrower.com/script.js" data-website-id="8d65925a-3e32-4739-ab7c-077f4ea903b6"></Script>
   </>
 }

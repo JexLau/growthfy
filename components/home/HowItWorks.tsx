@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import Link from "next/link";
+import { Play } from "lucide-react";
 
 const Step = ({
   number,
@@ -95,7 +96,7 @@ const HowItWorks = () => {
         <div className="mt-12 flex justify-center">
           <Link href="/demo" className="btn-secondary">
             <span>查看详细演示</span>
-            <i className="fas fa-play-circle ml-2"></i>
+            <Play className="ml-2" size={18} />
           </Link>
         </div>
       </div>
