@@ -1,84 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-  <!-- Base layer for dark mode compatibility -->
-  <defs>
-    <!-- Gradients for glass effect -->
-    <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2ecc71" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#27ae60" stop-opacity="0.8"/>
-    </linearGradient>
-    
-    <linearGradient id="darkGlassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1e8449" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#145a32" stop-opacity="0.8"/>
-    </linearGradient>
-    
-    <!-- Highlight effect -->
-    <linearGradient id="highlightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-    
-    <!-- Shadow and blur filters -->
-    <filter id="shadowBlur" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
-    </filter>
-    
-    <filter id="innerShadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
-      <feOffset in="blur" dx="2" dy="2" result="offsetBlur"/>
-      <feComposite in="SourceGraphic" in2="offsetBlur" operator="over"/>
-    </filter>
-    
-    <!-- Outer glow effect -->
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
-      <feFlood flood-color="#2ecc71" flood-opacity="0.6" result="glowColor"/>
-      <feComposite in="glowColor" in2="blur" operator="in" result="softGlow"/>
-      <feMerge>
-        <feMergeNode in="softGlow"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160">
+  <!-- 背景矩形 - 设为透明 -->
+  <rect width="400" height="160" fill="transparent"/>
   
-  <!-- Dark mode background (rounded rectangle) -->
-  <rect width="400" height="400" rx="20" ry="20" fill="#1a1a1a"/>
-  
-  <!-- Main container (glass effect) -->
-  <rect x="50" y="50" width="300" height="300" rx="20" ry="20" fill="url(#darkGlassGradient)" 
-        stroke="#27ae60" stroke-width="2" opacity="0.9" filter="url(#shadowBlur)"/>
-  
-  <!-- Glass highlight overlay -->
-  <rect x="60" y="60" width="280" height="140" rx="15" ry="15" fill="url(#highlightGradient)" opacity="0.5"/>
-  
-  <!-- Main LLMSTXT design -->
-  <g transform="translate(80, 120)">
-    <!-- LLMS text with 3D effect -->
-    <text x="0" y="50" font-family="Arial, sans-serif" font-weight="bold" font-size="64" 
-          fill="#ffffff" filter="url(#glow)">LLMS</text>
-    <text x="4" y="54" font-family="Arial, sans-serif" font-weight="bold" font-size="64" 
-          fill="rgba(0,0,0,0.2)" filter="url(#innerShadow)">LLMS</text>
+  <!-- G字母图标 -->
+  <g>
+    <!-- 图标背景 -->
+    <circle cx="60" cy="80" r="32" fill="#0284c7"/>
     
-    <!-- TXT text with 3D effect -->
-    <text x="0" y="120" font-family="Arial, sans-serif" font-weight="bold" font-size="64" 
-          fill="#ffffff" filter="url(#glow)">TXT</text>
-    <text x="4" y="124" font-family="Arial, sans-serif" font-weight="bold" font-size="64" 
-          fill="rgba(0,0,0,0.2)" filter="url(#innerShadow)">TXT</text>
+    <!-- G字母形状 -->
+    <path d="M60,60 C48,60 40,69 40,80 C40,91 48,100 60,100 C70,100, 76,93 78,86 L68,86 C67,90 64,92 60,92 C52,92 48,87 48,80 C48,73 52,68 60,68 C64,68 66,70 67,74 L78,74 C76,65 70,60 60,60 Z" fill="white"/>
     
-    <!-- Animated cursor with smooth pulse -->
-    <rect x="160" y="110" width="15" height="10" fill="#ffffff" rx="2" ry="2">
-      <animate attributeName="opacity" values="1;0.3;1" dur="1.2s" repeatCount="indefinite" calcMode="spline"
-               keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>
-    </rect>
+    <!-- 数据上升箭头 -->
+    <path d="M60,85 L65,78 L70,82 L75,73" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="75" cy="73" r="2" fill="#16a34a"/>
   </g>
   
-  <!-- Decorative elements -->
-  <circle cx="70" cy="80" r="8" fill="#ffffff" opacity="0.7"/>
-  <circle cx="95" cy="80" r="8" fill="#ffffff" opacity="0.7"/>
-  <circle cx="120" cy="80" r="8" fill="#ffffff" opacity="0.7"/>
-  
-  <!-- Subtle grid pattern for texture -->
-  <path d="M50 150 H350 M50 200 H350 M50 250 H350 M50 300 H350 M50 350 H350 
-           M100 50 V350 M150 50 V350 M200 50 V350 M250 50 V350 M300 50 V350"
-        stroke="#ffffff" stroke-width="0.5" opacity="0.1"/>
+  <!-- 文字部分 - Growthfy.ai -->
+  <text x="110" y="89" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="36" fill="#0f172a" letter-spacing="-0.5">
+    growth<tspan fill="#16a34a">fy</tspan><tspan fill="#16a34a">.</tspan><tspan fill="#0284c7">ai</tspan>
+  </text>
 </svg>

@@ -2,4 +2,4 @@
 User-agent: *
 
 # Sitemaps
-Sitemap: https://llmstxtgenerator.net/sitemap.xml
+Sitemap: https://growthfy.ai/sitemap.xml

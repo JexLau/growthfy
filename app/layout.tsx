@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { GTag, Umami } from "@/lib/scripts";
-// import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,23 +17,23 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "LLMs.txt Generator - Create AI-training friendly text for any website",
-  description: "All-in-one tool to help website owners create llms.txt files that meet AI training standards, optimizing your site content for AI models",
-  keywords: "llms.txt, AI training, website optimization, artificial intelligence, SEO, content management",
-  authors: [{ name: "LLMs.txt Generator" }],
-  creator: "LLMs.txt Generator Team",
-  publisher: "LLMs.txt Generator",
+  title: "Growthfy.ai - 转化社媒噪声为增长洞察",
+  description: "Growthfy.ai 帮助企业将无序的社交媒体信息流转化为有序的商业智能，发现隐藏的市场趋势、消费者情绪和竞争动态，让数据驱动决策变得简单高效。",
+  keywords: "社交媒体监控, AI洞察分析, 市场趋势, 消费者情绪分析, 竞争情报, 数据驱动决策, 商业智能",
+  authors: [{ name: "Growthfy.ai 团队" }],
+  creator: "Growthfy.ai",
+  publisher: "Growthfy.ai",
   openGraph: {
-    title: "LLMs.txt Generator - Create AI-training friendly text for any website",
-    description: "All-in-one tool to help website owners create llms.txt files that meet AI training standards, optimizing your site content for AI models",
-    url: "https://llmstxtgenerator.net",
-    siteName: "LLMs.txt Generator",
+    title: "Growthfy.ai - 转化社媒噪声为增长洞察",
+    description: "将无序的社交媒体信息流转化为有序的商业智能，让数据驱动决策不再复杂",
+    url: "https://growthfy.ai",
+    siteName: "Growthfy.ai",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1655720031554-a929595d5fb0?q=80&w=1200&auto=format&fit=crop",
+        url: "https://growthfy.ai/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "LLMs.txt Generator Preview",
+        alt: "Growthfy.ai - 社交媒体AI洞察分析平台",
       },
     ],
     locale: "en_US",
@@ -42,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "LLMs.txt Generator - Create AI-training friendly text for any website",
-    description: "All-in-one tool to help website owners create llms.txt files that meet AI training standards, optimizing your site content for AI models",
-    images: ["https://images.unsplash.com/photo-1655720031554-a929595d5fb0?q=80&w=1200&auto=format&fit=crop"],
+    title: "Growthfy.ai - 转化社媒噪声为增长洞察",
+    description: "将无序的社交媒体信息流转化为有序的商业智能，让数据驱动决策不再复杂",
+    images: ["https://growthfy.ai/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -57,8 +56,25 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://llmstxtgenerator.net",
+    canonical: "https://growthfy.ai",
+    languages: {
+      'en-US': 'https://growthfy.ai',
+      'zh-CN': 'https://growthfy.ai/zh',
+    },
   },
+  verification: {
+    google: "verification_token", // 需替换为实际的Google站点验证令牌
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/apple-touch-icon-precomposed.png',
+    },
+  },
+  category: 'business tools',
 };
 
 export default function RootLayout({
@@ -67,7 +83,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning>
+    <html suppressHydrationWarning lang="zh-CN">
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-background text-secondary-foreground`}
       >
@@ -81,7 +97,6 @@ export default function RootLayout({
         >
           {children}
           <Toaster />
-          {/* <Analytics /> */}
         </ThemeProvider>
       </body>
     </html>

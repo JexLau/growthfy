@@ -1,4 +1,4 @@
-# https://llmstxtgenerator.net llms-full.txt
+# https://growthfy.ai llms-full.txt
 
 AI Optimization Tool
 

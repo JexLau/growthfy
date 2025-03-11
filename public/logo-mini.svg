@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- 背景矩形 - 设为透明 -->
+  <rect width="200" height="200" fill="transparent"/>
+  
+  <!-- G字母图标 - 居中 -->
+  <g transform="translate(40, 0)">
+    <!-- 图标背景 -->
+    <circle cx="60" cy="100" r="60" fill="#0284c7"/>
+    
+    <!-- G字母形状 - 按比例放大 -->
+    <path d="M60,63 C38,63 22,79 22,100 C22,121 38,137 60,137 C78,137 90,125 93,112 L75,112 C73,119 67,123 60,123 C45,123 38,114 38,100 C38,86 45,77 60,77 C67,77 71,81 73,88 L93,88 C90,70 78,63 60,63 Z" fill="white"/>
+    
+    <!-- 数据上升箭头 - 按比例放大并稍微调整位置 -->
+    <path d="M60,112 L70,99 L80,107 L90,90" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <circle cx="90" cy="90" r="4" fill="#16a34a"/>
+  </g>
+</svg>
