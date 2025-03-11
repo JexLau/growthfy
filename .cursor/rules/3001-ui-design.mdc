@@ -1,0 +1,109 @@
+---
+description: 创建美观且响应式的UI界面时应遵循的设计原则和最佳实践
+globs: **/*.{html,css,jsx,tsx}
+alwaysApply: false
+---
+---
+name: UI设计规则
+description: 创建美观且响应式的UI界面时应遵循的设计原则和最佳实践
+glob: "**/*.{html,css,jsx,tsx}"
+---
+
+# UI设计规则
+
+## 规则摘要
+
+IMPLEMENT 一致且专业的UI设计 WHEN 创建或修改用户界面 TO 确保良好的用户体验和品牌一致性
+
+## 详细说明
+
+在创建或修改用户界面时，应遵循以下设计原则和最佳实践：
+
+### 设计系统
+
+- 使用一致的色彩系统，包括主色、辅助色和强调色
+- 保持字体系列和字体大小的一致性
+- 维护统一的组件样式和交互模式
+- 确保设计元素之间的间距和对齐遵循网格系统
+
+### 响应式设计
+
+- 所有界面必须在移动设备、平板和桌面端都能良好显示
+- 使用弹性布局和媒体查询适应不同屏幕尺寸
+- 确保触摸目标足够大（至少44x44像素）以提高移动端可用性
+- 测试不同设备和屏幕尺寸上的显示效果
+
+### 视觉层次
+
+- 通过大小、颜色、对比度和间距建立清晰的视觉层次
+- 确保重要内容和操作更加突出
+- 使用适当的留白增强可读性和内容分组
+- 保持界面简洁，避免视觉噪音
+
+### 交互设计
+
+- 提供清晰的视觉反馈响应用户操作
+- 实现平滑的过渡和动画效果
+- 确保所有交互元素有一致的悬停和点击状态
+- 优化加载状态和空状态的用户体验
+
+### 可访问性
+
+- 确保文本与背景之间有足够的对比度
+- 提供替代文本和ARIA标签以支持屏幕阅读器
+- 确保界面可通过键盘完全操作
+- 遵循WCAG 2.1 AA级别的可访问性标准
+
+### 技术实现
+
+- 优先使用CSS框架（如TailwindCSS）保持样式一致性
+- 使用矢量图标库而非位图图标
+- 优化图片资源以提高加载性能
+- 确保代码结构清晰且有适当注释
+
+## 示例
+
+### 良好实践
+
+```html
+<!-- 响应式卡片组件 -->
+<div class="max-w-sm rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
+  <img class="w-full h-48 object-cover" src="https://source.unsplash.com/random/800x600/?nature" alt="卡片图片描述">
+  <div class="px-6 py-4">
+    <h3 class="font-bold text-xl mb-2 text-gray-900 dark:text-white">卡片标题</h3>
+    <p class="text-gray-700 dark:text-gray-300 text-base">
+      卡片内容描述，简洁明了地传达关键信息。
+    </p>
+  </div>
+  <div class="px-6 pt-4 pb-6">
+    <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+      操作按钮
+    </button>
+  </div>
+</div>
+```
+
+### 不良实践
+
+```html
+<!-- 缺乏响应式设计和一致性的卡片 -->
+<div style="width: 350px; border: 1px solid #ccc;">
+  <img src="image.jpg">
+  <div style="padding: 10px;">
+    <h3 style="font-size: 18px;">卡片标题</h3>
+    <p>卡片描述文本</p>
+  </div>
+  <div>
+    <button style="background: blue; color: white; padding: 5px;">
+      点击
+    </button>
+  </div>
+</div>
+```
+
+## 注意事项
+
+- 在设计复杂界面前，先创建低保真原型或线框图
+- 定期进行用户测试以验证设计决策
+- 保持设计系统的文档更新
+- 确保团队成员了解并遵循这些UI设计规则

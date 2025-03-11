@@ -1,0 +1,107 @@
+{
+  "common": {
+    "welcome": "歡迎",
+    "home": "首頁",
+    "about": "關於",
+    "settings": "設置",
+    "language": "繁體中文",
+    "theme": "主題",
+    "light": "淺色",
+    "dark": "深色",
+    "system": "系統",
+    "features": "功能",
+    "howItWorks": "工作原理",
+    "faq": "常見問題",
+    "contactUs": "聯繫我們",
+    "getStarted": "開始使用",
+    "closeMenu": "關閉菜單",
+    "openMenu": "打開菜單",
+    "switchTheme": "切換主題",
+    "processing": "處理中...",
+    "copied": "已複製",
+    "copyToClipboard": "複製到剪貼板",
+    "error": "錯誤",
+    "pricing": "價格"
+  },
+  "home": {
+    "title": "LLMs文本生成器",
+    "description": "使用大型語言模型生成文本",
+    "hero": {
+      "aiOptimizationTool": "AI優化內容管理工具",
+      "generator": "生成器",
+      "subtitle": "為您的網站創建符合AI訓練標準的llms.txt文件，優化您的內容與人工智能的兼容性",
+      "inputPlaceholder": "輸入您的網站URL...",
+      "generateButton": "生成llms.txt",
+      "enterWebsiteUrl": "請輸入網站URL",
+      "enterValidUrl": "請輸入有效的URL",
+      "fullScan": "完整掃描（需要API密鑰）",
+      "fullScanDescription": "完整掃描將分析您網站上的所有頁面，以創建更全面的llms.txt文件",
+      "apiKey": "API密鑰",
+      "apiKeyPlaceholder": "輸入您的API密鑰",
+      "noApiKey": "沒有API密鑰？",
+      "getFreeKey": "獲取免費密鑰",
+      "yourFileReady": "您的llms.txt文件已準備就緒",
+      "copySuccess": "llms.txt內容已複製到剪貼板",
+      "downloadButton": "下載llms.txt"
+    },
+    "features": {
+      "title": "為什麼需要llms.txt？",
+      "description": "隨著AI技術的發展，控制您的網站內容如何被AI模型使用變得至關重要。llms.txt文件是一種標準方式，讓您明確指定哪些內容可以被AI訓練。"
+    },
+    "howItWorks": {
+      "title": "工作原理",
+      "description": "我們的工具使創建llms.txt文件變得簡單，只需幾個步驟即可完成"
+    },
+    "faq": {
+      "title": "常見問題",
+      "description": "關於llms.txt和我們的生成器工具的常見問題解答"
+    },
+    "cta": {
+      "title": "立即開始保護您的內容",
+      "description": "使用我們的llms.txt生成器，輕鬆控制AI如何使用您的網站內容",
+      "button": "免費生成llms.txt"
+    },
+    "jsonLd": {
+      "description": "為您的網站創建符合AI訓練標準的llms.txt文件，優化您的內容與人工智能的兼容性",
+      "feature1": "生成符合標準的llms.txt文件",
+      "feature2": "控制AI如何使用您的網站內容",
+      "feature3": "提升SEO效果",
+      "feature4": "保護您的知識產權"
+    },
+    "error": {
+      "generateError": "生成llms.txt時出錯，請稍後再試"
+    }
+  },
+  "settings": {
+    "title": "設置",
+    "languageSettings": "語言設置",
+    "selectLanguage": "選擇語言",
+    "themeSettings": "主題設置",
+    "selectTheme": "選擇主題"
+  },
+  "notFound": {
+    "title": "頁面未找到",
+    "description": "抱歉，我們找不到您請求的頁面。"
+  },
+  "footer": {
+    "description": "為您的網站創建符合AI訓練標準的llms.txt文件，優化您的內容與人工智能的兼容性。",
+    "product": "產品",
+    "resources": "資源",
+    "company": "公司",
+    "blog": "博客",
+    "documentation": "文檔",
+    "examples": "示例",
+    "api": "API",
+    "aboutUs": "關於我們",
+    "privacy": "隱私政策",
+    "contactUs": "聯繫我們",
+    "terms": "服務條款",
+    "cookiePolicy": "Cookie 政策",
+    "newsletterTitle": "訂閱我們的通訊",
+    "emailPlaceholder": "您的郵箱地址",
+    "subscribe": "訂閱",
+    "newsletterDisclaimer": "訂閱即表示您同意接收我們的營銷郵件，您可以隨時退訂",
+    "allRightsReserved": "保留所有權利。",
+    "jsonLdDescription": "為您的網站創建符合AI訓練標準的llms.txt文件，優化您的內容與人工智能的兼容性。"
+  }
+} 

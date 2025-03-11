@@ -1,0 +1,111 @@
+# https://llmstxtgenerator.net llms-full.txt
+
+AI Optimization Tool
+
+# LLMs.txtGenerator
+
+Create AI training friendly llms.txt files for your website, optimizing your content for AI models
+
+Generate llms.txt
+
+Full Scan (API key required)
+
+Full scan will analyze all pages on your website to create a more comprehensive llms.txt file
+
+Create AI training friendly llms.txt files for your website, optimizing your content for AI models
+
+### SEO优化
+
+通过llms.txt文件控制AI如何索引您的内容，提升SEO效果
+
+### 内容保护
+
+明确指定哪些内容可以被AI模型训练，保护您的知识产权
+
+### AI友好
+
+优化您的网站与AI系统的互动方式，提升用户体验
+
+## Why do you need llms.txt?
+
+As AI technology evolves, controlling how your website content is used by AI models becomes crucial. The llms.txt file is a standard way to specify which content can be trained on by AI.
+
+### 控制AI训练
+
+明确指定哪些内容可以被AI模型训练，哪些内容应该被排除
+
+### 保护知识产权
+
+防止您的原创内容被未经授权地用于AI训练和生成
+
+### 提升SEO效果
+
+通过明确的内容使用指南，优化您的网站在AI时代的搜索引擎表现
+
+### 符合行业标准
+
+遵循最新的AI内容使用标准，展示您对用户数据的尊重
+
+### 简化实施
+
+我们的工具使创建和部署llms.txt文件变得简单，无需技术知识
+
+### 增强用户信任
+
+向您的用户展示您重视他们的内容和隐私，建立更强的信任关系
+
+## How It Works
+
+Our tool makes creating llms.txt files simple, requiring just a few steps to complete
+
+1
+
+### 输入您的网站URL
+
+只需输入您的网站地址，我们的工具将开始分析您的内容
+
+2
+
+### 自定义设置
+
+选择是否进行完整扫描，以获取更全面的llms.txt文件
+
+3
+
+### 下载并部署
+
+下载生成的llms.txt文件，并将其放置在您网站的根目录中
+
+## Frequently Asked Questions
+
+Common questions about llms.txt and our generator tool
+
+### 什么是llms.txt文件？
+
+llms.txt是一个放置在网站根目录的文本文件，用于指定AI模型如何使用您网站的内容。它类似于robots.txt，但专门针对AI训练和使用。
+
+### 为什么我需要llms.txt文件？
+
+随着AI技术的发展，控制您的内容如何被AI使用变得越来越重要。llms.txt文件让您能够明确指定哪些内容可以被AI训练，从而保护您的知识产权。
+
+### 如何在我的网站上实施llms.txt？
+
+只需将生成的llms.txt文件上传到您网站的根目录（与robots.txt相同的位置）。大多数AI模型将会尊重这些指令。
+
+### 完整扫描和基本扫描有什么区别？
+
+基本扫描只分析您网站的主要页面，而完整扫描会分析您网站上的所有页面，提供更全面的llms.txt文件。完整扫描需要API密钥。
+
+### 所有AI模型都会遵循llms.txt吗？
+
+虽然llms.txt标准正在被越来越多的AI开发者采用，但并非所有AI模型都会遵循它。然而，实施llms.txt是表明您对内容使用偏好的重要步骤。
+
+### 使用这个工具需要付费吗？
+
+基本功能是完全免费的。对于需要更全面分析的高级用户，我们提供完整扫描功能，需要API密钥。
+
+## Start Protecting Your Content Now
+
+Use our llms.txt generator to easily control how AI uses your website content
+
+Generate llms.txt for Free

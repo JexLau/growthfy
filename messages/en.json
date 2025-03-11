@@ -1,0 +1,107 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "home": "Home",
+    "about": "About",
+    "settings": "Settings",
+    "language": "English",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "features": "Features",
+    "howItWorks": "How It Works",
+    "faq": "FAQ",
+    "contactUs": "Contact Us",
+    "getStarted": "Get Started",
+    "closeMenu": "Close Menu",
+    "openMenu": "Open Menu",
+    "switchTheme": "Switch Theme",
+    "processing": "Processing...",
+    "copied": "Copied",
+    "copyToClipboard": "Copy to Clipboard",
+    "error": "Error",
+    "pricing": "Pricing"
+  },
+  "home": {
+    "title": "LLMs Text Generator",
+    "description": "Generate text using large language models",
+    "hero": {
+      "aiOptimizationTool": "AI Optimization Tool",
+      "generator": "Generator",
+      "subtitle": "Create AI training friendly llms.txt files for your website, optimizing your content for AI models",
+      "inputPlaceholder": "Enter your website URL...",
+      "generateButton": "Generate llms.txt",
+      "enterWebsiteUrl": "Please enter a website URL",
+      "enterValidUrl": "Please enter a valid URL",
+      "fullScan": "Full Scan (API key required)",
+      "fullScanDescription": "Full scan will analyze all pages on your website to create a more comprehensive llms.txt file",
+      "apiKey": "API Key",
+      "apiKeyPlaceholder": "Enter your API key",
+      "noApiKey": "Don't have an API key?",
+      "getFreeKey": "Get a free key",
+      "yourFileReady": "Your llms.txt file is ready",
+      "copySuccess": "llms.txt content copied to clipboard",
+      "downloadButton": "Download llms.txt"
+    },
+    "features": {
+      "title": "Why do you need llms.txt?",
+      "description": "As AI technology evolves, controlling how your website content is used by AI models becomes crucial. The llms.txt file is a standard way to specify which content can be trained on by AI."
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "description": "Our tool makes creating llms.txt files simple, requiring just a few steps to complete"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Common questions about llms.txt and our generator tool"
+    },
+    "cta": {
+      "title": "Start Protecting Your Content Now",
+      "description": "Use our llms.txt generator to easily control how AI uses your website content",
+      "button": "Generate llms.txt for Free"
+    },
+    "jsonLd": {
+      "description": "Create AI training friendly llms.txt files for your website, optimizing your content for AI models",
+      "feature1": "Generate standard-compliant llms.txt files",
+      "feature2": "Control how AI uses your website content",
+      "feature3": "Improve SEO performance",
+      "feature4": "Protect your intellectual property"
+    },
+    "error": {
+      "generateError": "Error generating llms.txt, please try again later"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "languageSettings": "Language Settings",
+    "selectLanguage": "Select Language",
+    "themeSettings": "Theme Settings",
+    "selectTheme": "Select Theme"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, we couldn't find the page you were looking for."
+  },
+  "footer": {
+    "description": "Create AI training friendly llms.txt files for your website, optimizing your content for AI models.",
+    "product": "Product",
+    "resources": "Resources",
+    "company": "Company",
+    "blog": "Blog",
+    "documentation": "Documentation",
+    "examples": "Examples",
+    "api": "API",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookiePolicy": "Cookie Policy",
+    "newsletterTitle": "Subscribe to our Newsletter",
+    "emailPlaceholder": "Your email address",
+    "subscribe": "Subscribe",
+    "newsletterDisclaimer": "By subscribing, you agree to receive our marketing emails. You can unsubscribe at any time.",
+    "allRightsReserved": "All Rights Reserved.",
+    "jsonLdDescription": "Create AI training friendly llms.txt files for your website, optimizing your content for AI models."
+  }
+} 

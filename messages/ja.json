@@ -1,0 +1,107 @@
+{
+  "common": {
+    "welcome": "ようこそ",
+    "home": "ホーム",
+    "about": "について",
+    "settings": "設定",
+    "language": "日本語",
+    "theme": "テーマ",
+    "light": "ライト",
+    "dark": "ダーク",
+    "system": "システム",
+    "features": "機能",
+    "howItWorks": "仕組み",
+    "faq": "よくある質問",
+    "contactUs": "お問い合わせ",
+    "getStarted": "始める",
+    "closeMenu": "メニューを閉じる",
+    "openMenu": "メニューを開く",
+    "switchTheme": "テーマを切り替える",
+    "processing": "処理中...",
+    "copied": "コピーしました",
+    "copyToClipboard": "クリップボードにコピー",
+    "error": "エラー",
+    "pricing": "料金"
+  },
+  "home": {
+    "title": "LLMsテキストジェネレーター",
+    "description": "大規模言語モデルを使用してテキストを生成する",
+    "hero": {
+      "aiOptimizationTool": "AI最適化ツール",
+      "generator": "ジェネレーター",
+      "subtitle": "ウェブサイトのためのAIトレーニングに適したllms.txtファイルを作成し、AIモデルのためにコンテンツを最適化します",
+      "inputPlaceholder": "ウェブサイトのURLを入力...",
+      "generateButton": "llms.txtを生成",
+      "enterWebsiteUrl": "ウェブサイトのURLを入力してください",
+      "enterValidUrl": "有効なURLを入力してください",
+      "fullScan": "フルスキャン（APIキーが必要）",
+      "fullScanDescription": "フルスキャンはウェブサイト上のすべてのページを分析し、より包括的なllms.txtファイルを作成します",
+      "apiKey": "APIキー",
+      "apiKeyPlaceholder": "APIキーを入力",
+      "noApiKey": "APIキーをお持ちでない場合？",
+      "getFreeKey": "無料キーを取得",
+      "yourFileReady": "llms.txtファイルの準備ができました",
+      "copySuccess": "llms.txtの内容をクリップボードにコピーしました",
+      "downloadButton": "llms.txtをダウンロード"
+    },
+    "features": {
+      "title": "なぜllms.txtが必要なのか？",
+      "description": "AI技術が進化するにつれ、ウェブサイトのコンテンツがAIモデルによってどのように使用されるかをコントロールすることが重要になります。llms.txtファイルはAIがトレーニングできるコンテンツを指定する標準的な方法です。"
+    },
+    "howItWorks": {
+      "title": "仕組み",
+      "description": "当社のツールはllms.txtファイルの作成を簡単にし、わずか数ステップで完了できます"
+    },
+    "faq": {
+      "title": "よくある質問",
+      "description": "llms.txtと当社のジェネレーターツールに関するよくある質問"
+    },
+    "cta": {
+      "title": "今すぐコンテンツを保護しましょう",
+      "description": "当社のllms.txtジェネレーターを使用して、AIがウェブサイトのコンテンツをどのように使用するかを簡単に制御できます",
+      "button": "llms.txtを無料で生成"
+    },
+    "jsonLd": {
+      "description": "ウェブサイトのためのAIトレーニングに適したllms.txtファイルを作成し、AIモデルのためにコンテンツを最適化します",
+      "feature1": "標準に準拠したllms.txtファイルを生成",
+      "feature2": "AIがウェブサイトのコンテンツをどのように使用するかを制御",
+      "feature3": "SEOパフォーマンスの向上",
+      "feature4": "知的財産を保護"
+    },
+    "error": {
+      "generateError": "llms.txtの生成中にエラーが発生しました。後でもう一度お試しください"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "languageSettings": "言語設定",
+    "selectLanguage": "言語を選択",
+    "themeSettings": "テーマ設定",
+    "selectTheme": "テーマを選択"
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "description": "申し訳ありませんが、お探しのページが見つかりませんでした。"
+  },
+  "footer": {
+    "description": "ウェブサイトのためのAIトレーニングに適したllms.txtファイルを作成し、AIモデルのためにコンテンツを最適化します。",
+    "product": "製品",
+    "resources": "リソース",
+    "company": "会社",
+    "blog": "ブログ",
+    "documentation": "ドキュメント",
+    "examples": "例",
+    "api": "API",
+    "aboutUs": "会社概要",
+    "contactUs": "お問い合わせ",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
+    "cookiePolicy": "Cookie ポリシー",
+    "newsletterTitle": "ニュースレターを購読する",
+    "emailPlaceholder": "メールアドレス",
+    "subscribe": "購読する",
+    "newsletterDisclaimer": "購読することで、当社のマーケティングメールを受け取ることに同意したことになります。いつでも配信を停止できます。",
+    "allRightsReserved": "All Rights Reserved.",
+    "jsonLdDescription": "ウェブサイトのためのAIトレーニングに適したllms.txtファイルを作成し、AIモデルのためにコンテンツを最適化します。"
+  }
+} 

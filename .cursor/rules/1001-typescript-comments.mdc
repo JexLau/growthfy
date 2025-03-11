@@ -1,0 +1,147 @@
+---
+description: APPLY consistent comment standards WHEN writing TypeScript code TO improve readability and maintainability
+globs: **/*.{ts,tsx}
+---
+
+# TypeScript 注释标准
+
+<version>1.0.0</version>
+
+## 上下文
+- 在编写TypeScript代码时应用
+- 确保注释既不过多也不过少
+- 优化注释以便于人类和AI理解与故障排除
+
+## 要求
+
+### 基本原则
+- 使用TSDoc规范（https://tsdoc.org/）作为注释的基础
+- 代码应该尽可能自解释，优先通过良好的命名和结构减少注释需求
+- 只在真正需要解释"为什么"而不是"做什么"的地方添加注释
+- 避免过度注释明显的代码逻辑
+
+### 文件头注释
+- 每个文件顶部应有简洁的文件描述注释
+- 包含文件的主要功能、作者和创建日期（可选）
+- 不要在文件头重复文件名
+
+### 函数和方法注释
+- 使用JSDoc风格的多行注释（/** ... */）
+- 为公共API和复杂函数提供完整的参数和返回值文档
+- 简单或私有函数可以使用更简洁的注释或完全依赖类型声明
+- 包含以下标签（如适用）：
+  - `@param` - 参数说明
+  - `@returns` - 返回值说明
+  - `@throws` - 可能抛出的异常
+  - `@example` - 使用示例（对复杂API）
+  - `@deprecated` - 标记废弃的API
+
+### 类和接口注释
+- 描述类或接口的目的和责任
+- 解释继承关系或实现的接口（如果不明显）
+- 对公共属性提供简短说明
+
+### 行内注释
+- 使用单行注释（//）解释复杂或不明显的代码段
+- 将注释放在代码上方，而不是同一行末尾
+- 在注释和//之间保留一个空格
+- 避免使用块注释（/* ... */）进行单行注释
+
+### 注释格式
+- 使用完整的句子，以大写字母开头，以句号结尾
+- 保持一致的缩进和格式
+- 避免不必要的标点符号和冗长描述
+
+### AI优化注释
+- 在复杂算法或业务逻辑处添加解释性注释
+- 对于特殊的边界条件或异常情况提供明确说明
+- 在可能引起混淆的代码处添加注释，特别是非直观的解决方案
+- 对于临时解决方案或技术债务，添加TODO或FIXME注释，并解释原因
+
+## 示例
+
+<example>
+/**
+ * 用户服务 - 处理用户相关的业务逻辑
+ */
+export class UserService {
+  /**
+   * 根据用户ID获取用户信息
+   * @param userId - 用户唯一标识符
+   * @returns 用户详细信息，如果未找到则返回null
+   * @throws ApiError 当API请求失败时
+   */
+  async getUserById(userId: string): Promise<User | null> {
+    try {
+      return await this.apiClient.get(`/users/${userId}`);
+    } catch (error) {
+      // 记录错误但不暴露给调用者，简化错误处理
+      this.logger.error(`获取用户失败: ${error.message}`);
+      throw new ApiError('无法获取用户信息', error);
+    }
+  }
+}
+</example>
+
+<example>
+// 简单函数不需要冗长注释，类型声明已足够清晰
+function calculateTotal(prices: number[]): number {
+  return prices.reduce((sum, price) => sum + price, 0);
+}
+
+// 对于复杂逻辑，添加解释性注释
+function applyDiscount(prices: number[], discount: number): number {
+  // 折扣必须在0-1之间，表示百分比
+  if (discount < 0 || discount > 1) {
+    throw new Error('折扣必须在0到1之间');
+  }
+  
+  const total = calculateTotal(prices);
+  return total * (1 - discount);
+}
+</example>
+
+<example type="invalid">
+// UserService.ts
+/**
+ * UserService类
+ * 这是用户服务类
+ * 创建于2023年
+ * 版本1.0
+ * 作者：开发团队
+ * 这个类处理用户相关的功能
+ */
+export class UserService {
+  // getUserById方法
+  // 参数：userId - 用户ID
+  // 返回：用户对象
+  public getUserById(userId: string): User {
+    // 创建API客户端
+    const apiClient = new ApiClient();
+    // 调用API
+    // 返回用户
+    return apiClient.get('/users/' + userId); // 获取用户并返回
+  }
+}
+</example>
+
+<example type="invalid">
+function add(a, b) { return a + b; } // 将两个数相加并返回结果
+
+/**
+ * 这个函数计算数组中所有数字的总和
+ * 它接收一个数字数组作为输入
+ * 然后遍历数组
+ * 对于每个元素，将其添加到总和中
+ * 最后返回总和
+ * @param {number[]} numbers - 要计算总和的数字数组
+ * @returns {number} - 数组中所有数字的总和
+ */
+function sum(numbers: number[]): number {
+  let total = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    total += numbers[i];
+  }
+  return total;
+}
+</example> 

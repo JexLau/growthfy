@@ -1,0 +1,107 @@
+{
+  "common": {
+    "welcome": "Benvenuto",
+    "home": "Home",
+    "about": "Chi siamo",
+    "settings": "Impostazioni",
+    "language": "Italiano",
+    "theme": "Tema",
+    "light": "Chiaro",
+    "dark": "Scuro",
+    "system": "Sistema",
+    "features": "Funzionalità",
+    "howItWorks": "Come funziona",
+    "faq": "Domande frequenti",
+    "contactUs": "Contattaci",
+    "getStarted": "Inizia ora",
+    "closeMenu": "Chiudi menu",
+    "openMenu": "Apri menu",
+    "switchTheme": "Cambia tema",
+    "processing": "Elaborazione...",
+    "copied": "Copiato",
+    "copyToClipboard": "Copia negli appunti",
+    "error": "Errore",
+    "pricing": "Prezzi"
+  },
+  "home": {
+    "title": "Generatore di testo LLMs",
+    "description": "Genera testo utilizzando modelli linguistici di grandi dimensioni",
+    "hero": {
+      "aiOptimizationTool": "Strumento di ottimizzazione AI",
+      "generator": "Generatore",
+      "subtitle": "Crea file llms.txt compatibili con l'addestramento AI per il tuo sito web, ottimizzando i tuoi contenuti per i modelli di intelligenza artificiale",
+      "inputPlaceholder": "Inserisci l'URL del tuo sito web...",
+      "generateButton": "Genera llms.txt",
+      "enterWebsiteUrl": "Inserisci l'URL di un sito web",
+      "enterValidUrl": "Inserisci un URL valido",
+      "fullScan": "Scansione completa (richiede chiave API)",
+      "fullScanDescription": "La scansione completa analizzerà tutte le pagine del tuo sito web per creare un file llms.txt più completo",
+      "apiKey": "Chiave API",
+      "apiKeyPlaceholder": "Inserisci la tua chiave API",
+      "noApiKey": "Non hai una chiave API?",
+      "getFreeKey": "Ottieni una chiave gratuita",
+      "yourFileReady": "Il tuo file llms.txt è pronto",
+      "copySuccess": "Contenuto di llms.txt copiato negli appunti",
+      "downloadButton": "Scarica llms.txt"
+    },
+    "features": {
+      "title": "Perché hai bisogno di llms.txt?",
+      "description": "Con l'evoluzione della tecnologia AI, controllare come i tuoi contenuti web vengono utilizzati dai modelli AI diventa cruciale. Il file llms.txt è un modo standard per specificare quali contenuti possono essere utilizzati per l'addestramento dell'AI."
+    },
+    "howItWorks": {
+      "title": "Come funziona",
+      "description": "Il nostro strumento rende la creazione di file llms.txt semplice, richiedendo solo pochi passaggi per completare"
+    },
+    "faq": {
+      "title": "Domande frequenti",
+      "description": "Domande comuni su llms.txt e il nostro strumento di generazione"
+    },
+    "cta": {
+      "title": "Inizia a proteggere i tuoi contenuti ora",
+      "description": "Usa il nostro generatore llms.txt per controllare facilmente come l'AI utilizza i contenuti del tuo sito web",
+      "button": "Genera llms.txt gratuitamente"
+    },
+    "jsonLd": {
+      "description": "Crea file llms.txt compatibili con l'addestramento AI per il tuo sito web, ottimizzando i tuoi contenuti per i modelli di intelligenza artificiale",
+      "feature1": "Genera file llms.txt conformi agli standard",
+      "feature2": "Controlla come l'AI utilizza i contenuti del tuo sito web",
+      "feature3": "Migliora le prestazioni SEO",
+      "feature4": "Proteggi la tua proprietà intellettuale"
+    },
+    "error": {
+      "generateError": "Errore durante la generazione di llms.txt, riprova più tardi"
+    }
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "languageSettings": "Impostazioni lingua",
+    "selectLanguage": "Seleziona lingua",
+    "themeSettings": "Impostazioni tema",
+    "selectTheme": "Seleziona tema"
+  },
+  "notFound": {
+    "title": "Pagina non trovata",
+    "description": "Ci dispiace, non siamo riusciti a trovare la pagina che stai cercando."
+  },
+  "footer": {
+    "description": "Crea file llms.txt compatibili con l'addestramento AI per il tuo sito web, ottimizzando i tuoi contenuti per i modelli di intelligenza artificiale.",
+    "product": "Prodotto",
+    "resources": "Risorse",
+    "company": "Azienda",
+    "blog": "Blog",
+    "documentation": "Documentazione",
+    "examples": "Esempi",
+    "api": "API",
+    "aboutUs": "Chi siamo",
+    "privacy": "Privacy Policy",
+    "contactUs": "Contattaci",
+    "terms": "Termini di servizio",
+    "cookiePolicy": "Cookie Policy",
+    "newsletterTitle": "Iscriviti alla nostra newsletter",
+    "emailPlaceholder": "Il tuo indirizzo email",
+    "subscribe": "Iscriviti",
+    "newsletterDisclaimer": "Iscrivendoti, accetti di ricevere le nostre email di marketing. Puoi cancellarti in qualsiasi momento.",
+    "allRightsReserved": "Tutti i diritti riservati.",
+    "jsonLdDescription": "Crea file llms.txt compatibili con l'addestramento AI per il tuo sito web, ottimizzando i tuoi contenuti per i modelli di intelligenza artificiale."
+  }
+} 

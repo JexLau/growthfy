@@ -1,0 +1,158 @@
+---
+description: IMPLEMENT consistent renderer components WHEN creating custom content renderers TO ensure compatibility and maintainability
+globs: src/components/render/**/*.{vue,ts,tsx}
+alwaysApply: false
+---
+ ---
+description: IMPLEMENT consistent renderer components WHEN creating custom content renderers TO ensure compatibility and maintainability
+globs: src/components/render/**/*.{ts,tsx}
+---
+
+# 自定义渲染器组件规范
+
+<version>1.0.0</version>
+
+## 上下文
+- 在创建或修改内容渲染器组件时应用
+- 确保所有渲染器组件遵循一致的模式和结构
+- 保持渲染器组件与ContentRenderer主组件的兼容性
+
+## 要求
+
+### 基本结构
+- 每个渲染器必须实现React.FC<ContentRendererProps>接口
+- 渲染器名称必须遵循"[ContentType]Renderer"的命名模式
+- 每个渲染器必须处理对应的内容类型，并正确处理props中的content、config和onEvent
+
+### 类型定义
+- 新的内容类型必须在ContentType枚举中定义
+- 为新的内容类型创建对应的接口，继承自BaseContent
+- 在type.ts文件中定义所有类型，保持类型定义的集中管理
+
+### 组件实现
+- 实现适当的错误处理和边界情况检查
+- 使用config参数中的配置来调整渲染行为
+- 通过onEvent回调函数报告用户交互和重要事件
+- 保持组件的纯展示性质，业务逻辑应由父组件处理
+
+### 样式和主题
+- 使用config.theme参数支持亮色、暗色和自定义主题
+- 使用一致的样式命名约定和CSS组织方式
+- 确保组件在不同尺寸和设备上的响应式表现
+
+### 导出和集成
+- 在index.ts文件中导出所有渲染器组件
+- 在ContentRenderer.tsx中添加新渲染器的case分支
+- 确保渲染器可以独立使用，也可以通过ContentRenderer集成使用
+
+### 性能优化
+- 使用React.memo、useCallback和useMemo优化渲染性能
+- 避免不必要的重渲染和计算
+- 对大型内容或复杂渲染实现懒加载
+
+## 示例
+
+<example>
+// 正确的渲染器实现示例
+import React from 'react';
+import { ContentRendererProps, CustomContent, ContentType } from './type';
+
+export const CustomRenderer: React.FC<ContentRendererProps> = ({ content, config, onEvent }) => {
+  // 类型断言确保内容类型正确
+  const customContent = content as CustomContent;
+  
+  // 使用配置参数
+  const theme = config?.theme || 'light';
+  
+  // 事件处理函数
+  const handleInteraction = () => {
+    onEvent?.({
+      type: 'interaction',
+      payload: { contentId: customContent.id },
+      timestamp: Date.now(),
+      source: 'CustomRenderer'
+    });
+  };
+  
+  return (
+    <div className={`custom-renderer ${theme}`}>
+      <h2>{customContent.title}</h2>
+      <div className="custom-content">{customContent.data}</div>
+      <button onClick={handleInteraction}>交互按钮</button>
+    </div>
+  );
+};
+</example>
+
+<example>
+// 在ContentRenderer中集成新渲染器
+import { CustomRenderer } from './CustomRenderer';
+// ... 其他导入
+
+export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, config, onEvent }) => {
+  // ... 现有代码
+  
+  switch (content.type) {
+    // ... 现有case
+    
+    case ContentType.CUSTOM:
+      return <CustomRenderer content={content as CustomContent} config={mergedConfig} onEvent={onEvent} />;
+    
+    default:
+      return <div className="error-message">不支持的内容类型</div>;
+  }
+};
+</example>
+
+<example>
+// 在type.ts中定义新的内容类型
+export enum ContentType {
+  // ... 现有类型
+  CUSTOM = 'custom'
+}
+
+export interface CustomContent extends BaseContent {
+  type: ContentType.CUSTOM;
+  data: string;
+  options?: {
+    layout: 'vertical' | 'horizontal';
+    showControls: boolean;
+  };
+}
+</example>
+
+<example type="invalid">
+// 错误的实现：未遵循命名约定和接口
+import React from 'react';
+
+// 命名不一致，未实现正确的接口
+export const CustomComponent = (props) => {
+  const { data } = props;
+  
+  return (
+    <div>
+      <h2>{data.title}</h2>
+      <div>{data.content}</div>
+    </div>
+  );
+};
+</example>
+
+<example type="invalid">
+// 错误的实现：未处理配置和事件
+import React from 'react';
+import { ContentRendererProps, CustomContent } from './type';
+
+export const CustomRenderer: React.FC<ContentRendererProps> = ({ content }) => {
+  // 未使用config参数
+  // 未实现onEvent回调
+  // 未进行类型断言
+  
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <div>{content.data}</div>
+    </div>
+  );
+};
+</example>
