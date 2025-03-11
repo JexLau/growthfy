@@ -15,7 +15,6 @@ export function TwitterSearchForm({
 }: TwitterSearchFormProps) {
   const [params, setParams] = useState<TwitterSearchParams>({
     query: '',
-    limit: 30,
     includeRetweets: true,
     includeReplies: true,
     sortBy: 'recency',
@@ -91,23 +90,6 @@ export function TwitterSearchForm({
             name="toDate"
             type="date"
             value={params.toDate || ''}
-            onChange={handleChange}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* 结果限制 */}
-        <div>
-          <label htmlFor="limit" className="mb-1 block text-sm font-medium">
-            结果数量
-          </label>
-          <input
-            id="limit"
-            name="limit"
-            type="number"
-            min="1"
-            max="50"
-            value={params.limit || 30}
             onChange={handleChange}
             className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />

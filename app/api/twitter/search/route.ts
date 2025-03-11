@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 // 定义查询参数接口
 interface TwitterSearchParams {
   query: string;
-  limit?: number;
   fromDate?: string;
   toDate?: string;
   includeRetweets?: boolean;
@@ -27,10 +26,10 @@ interface TwitterSearchParams {
  */
 function buildSocialDataQuery(params: TwitterSearchParams): string {
   let query = params.query || '';
-  
+
   // 如果查询中已经包含高级操作符，就不需要再添加了
   const hasAdvancedOperators = /\b(from:|to:|@|filter:|min_|lang:|url:|near:|since:|until:)\b/.test(query);
-  
+
   if (!hasAdvancedOperators) {
     // 处理时间范围
     if (params.fromDate && params.toDate) {
@@ -79,24 +78,24 @@ function buildSocialDataQuery(params: TwitterSearchParams): string {
     if (params.language) {
       query += ` lang:${params.language}`;
     }
-    
+
     // 添加互动筛选
     if (params.min_retweets) {
       query += ` min_retweets:${params.min_retweets}`;
     }
-    
+
     if (params.min_faves) {
       query += ` min_faves:${params.min_faves}`;
     }
-    
+
     if (params.min_replies) {
       query += ` min_replies:${params.min_replies}`;
     }
-    
+
     // 地理位置筛选
     if (params.near_location) {
       query += ` near:"${params.near_location}"`;
-      
+
       if (params.within_distance) {
         query += ` within:${params.within_distance}`;
       }
@@ -134,7 +133,6 @@ export async function GET(request: NextRequest) {
     // 构建参数对象
     const params: TwitterSearchParams = {
       query,
-      limit: searchParams.get('limit') ? parseInt(searchParams.get('limit')!, 10) : 100,
       fromDate: searchParams.get('fromDate') || undefined,
       toDate: searchParams.get('toDate') || undefined,
       includeRetweets: searchParams.get('includeRetweets') === 'true',
@@ -153,10 +151,14 @@ export async function GET(request: NextRequest) {
 
     // 构建查询字符串
     const socialDataQuery = buildSocialDataQuery(params);
-    // console.log('Twitter搜索查询:', socialDataQuery); // 记录最终查询
+    console.log('Twitter搜索查询:', socialDataQuery); // 记录最终查询
 
     // 请求 socialdata API
-    const url = new URL(`${SOCIALDATA_BASE_URL}/search?query=${socialDataQuery}`);
+    const url = new URL(`${SOCIALDATA_BASE_URL}/search`);
+    url.searchParams.append('query', socialDataQuery); // 使用处理后的查询字符串
+    if (nextToken) {
+      url.searchParams.append('max_id', nextToken);
+    }
 
     console.log('发送请求到:', url.toString()); // 记录请求URL
 
@@ -179,16 +181,6 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
-    
-    // 记录API返回的原始数据结构
-    console.log('社交数据API返回结构:', JSON.stringify({
-      keys: Object.keys(data),
-      hasStatuses: !!data.statuses,
-      hasTweets: !!data.tweets,
-      hasResults: !!data.results,
-      sampleData: data.tweets?.[0] || data.results?.[0] || data.statuses?.[0] || null
-    }, null, 2));
-    
     // 转换数据格式为TwitterSearchResponse
     const formattedResponse = {
       statuses: data.tweets || data.results || data.statuses || [],
@@ -198,12 +190,11 @@ export async function GET(request: NextRequest) {
         max_id_str: data.search_metadata?.max_id_str || '0',
         next_results: data.search_metadata?.next_results,
         query: query,
-        count: params.limit || 10,
         since_id: parseInt(data.search_metadata?.since_id_str || '0'),
         since_id_str: data.search_metadata?.since_id_str || '0'
       }
     };
-    
+
     return NextResponse.json(formattedResponse);
 
   } catch (error) {
@@ -215,103 +206,3 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// 可选: 如果你的 API 也接受 POST 请求
-export async function POST(request: NextRequest) {
-  try {
-    // 解析请求体
-    const body = await request.json();
-
-    if (!body.query) {
-      return NextResponse.json(
-        { error: 'Missing required parameter: query' },
-        { status: 400 }
-      );
-    }
-
-    if (!SOCIALDATA_API_KEY) {
-      return NextResponse.json(
-        { error: 'API key not configured' },
-        { status: 500 }
-      );
-    }
-
-    // 构建参数对象
-    const params: TwitterSearchParams = {
-      query: body.query,
-      limit: body.limit || 100,
-      fromDate: body.fromDate,
-      toDate: body.toDate,
-      includeRetweets: body.includeRetweets,
-      filterVerified: body.filterVerified,
-      includeReplies: body.includeReplies !== false,
-      mediaType: body.mediaType,
-      language: body.language,
-      sortBy: body.sortBy || 'recency',
-      next_token: body.next_token,
-      min_retweets: body.min_retweets ? parseInt(body.min_retweets, 10) : undefined,
-      min_faves: body.min_faves ? parseInt(body.min_faves, 10) : undefined,
-      min_replies: body.min_replies ? parseInt(body.min_replies, 10) : undefined,
-      near_location: body.near_location || undefined,
-      within_distance: body.within_distance || undefined
-    };
-
-    // 构建查询字符串
-    const socialDataQuery = buildSocialDataQuery(params);
-    console.log('Twitter搜索查询 (POST):', socialDataQuery); // 记录最终查询
-
-    // 请求 socialdata API
-    const response = await fetch(`${SOCIALDATA_BASE_URL}/search?query=${socialDataQuery}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${SOCIALDATA_API_KEY}`
-      }
-    });
-    
-    console.log('POST请求发送完成'); // 记录请求完成
-
-    // 处理响应
-    if (!response.ok) {
-      const errorData = await response.json();
-      return NextResponse.json(
-        { error: 'Error from socialdata API', details: errorData },
-        { status: response.status }
-      );
-    }
-
-    const data = await response.json();
-    
-    // 记录API返回的原始数据结构
-    console.log('社交数据API返回结构:', JSON.stringify({
-      keys: Object.keys(data),
-      hasStatuses: !!data.statuses,
-      hasTweets: !!data.tweets,
-      hasResults: !!data.results,
-      sampleData: data.tweets?.[0] || data.results?.[0] || data.statuses?.[0] || null
-    }, null, 2));
-    
-    // 转换数据格式为TwitterSearchResponse
-    const formattedResponse = {
-      statuses: data.tweets || data.results || data.statuses || [],
-      search_metadata: {
-        completed_in: data.search_metadata?.completed_in || 0,
-        max_id: parseInt(data.search_metadata?.max_id_str || '0'),
-        max_id_str: data.search_metadata?.max_id_str || '0',
-        next_results: data.search_metadata?.next_results,
-        query: body.query,
-        count: params.limit || 10,
-        since_id: parseInt(data.search_metadata?.since_id_str || '0'),
-        since_id_str: data.search_metadata?.since_id_str || '0'
-      }
-    };
-    
-    return NextResponse.json(formattedResponse);
-
-  } catch (error) {
-    console.error('Twitter search API error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error', message: (error as Error).message },
-      { status: 500 }
-    );
-  }
-}
