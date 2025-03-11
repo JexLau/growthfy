@@ -28,6 +28,12 @@ export function TwitterSearchForm({
     if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
       setParams(prev => ({ ...prev, [name]: checked }));
+    } else if (type === 'number') {
+      // 对于数字输入，如果为空，设置为undefined，否则转换为数字
+      setParams(prev => ({ 
+        ...prev, 
+        [name]: value === '' ? undefined : parseInt(value, 10) 
+      }));
     } else {
       setParams(prev => ({ ...prev, [name]: value }));
     }
@@ -57,7 +63,7 @@ export function TwitterSearchForm({
             className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <p className="mt-1 text-xs text-gray-500">
-            使用高级运算符: from:用户名, #标签, filter:media, -关键词(排除)
+            使用高级运算符: from:用户名, #标签, filter:media, -关键词(排除), min_retweets:10, min_faves:100, near:"北京", lang:zh
           </p>
         </div>
 
@@ -99,8 +105,8 @@ export function TwitterSearchForm({
             id="limit"
             name="limit"
             type="number"
-            min="10"
-            max="100"
+            min="1"
+            max="50"
             value={params.limit || 30}
             onChange={handleChange}
             className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -165,6 +171,95 @@ export function TwitterSearchForm({
             <option value="links">含链接</option>
             <option value="all">所有媒体</option>
           </select>
+        </div>
+
+        {/* 新增高级筛选区域 */}
+        <div className="md:col-span-2">
+          <div className="mb-2 flex items-center justify-between">
+            <h3 className="text-sm font-medium text-gray-700">高级筛选</h3>
+            <button 
+              type="button"
+              onClick={() => {
+                // 使用样例搜索词
+                const examples = [
+                  'from:CCTV min_retweets:100', 
+                  '#AI filter:images lang:zh',
+                  '人工智能 min_faves:50 -chatgpt',
+                  'near:"上海" within:15km',
+                  'url:github.com filter:links'
+                ];
+                const randomExample = examples[Math.floor(Math.random() * examples.length)];
+                setParams(prev => ({ ...prev, query: randomExample }));
+              }}
+              className="text-xs text-blue-500 hover:text-blue-700"
+            >
+              使用示例
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div>
+              <label htmlFor="min_retweets" className="mb-1 block text-sm font-medium">
+                最少转发数
+              </label>
+              <input
+                id="min_retweets"
+                name="min_retweets"
+                type="number"
+                min="0"
+                value={params.min_retweets || ''}
+                onChange={handleChange}
+                placeholder="例如: 10"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="min_faves" className="mb-1 block text-sm font-medium">
+                最少点赞数
+              </label>
+              <input
+                id="min_faves"
+                name="min_faves"
+                type="number"
+                min="0"
+                value={params.min_faves || ''}
+                onChange={handleChange}
+                placeholder="例如: 100"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="near_location" className="mb-1 block text-sm font-medium">
+                地理位置
+              </label>
+              <div className="flex space-x-2">
+                <input
+                  id="near_location"
+                  name="near_location"
+                  type="text"
+                  value={params.near_location || ''}
+                  onChange={handleChange}
+                  placeholder="地点，如: 北京"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <select
+                  id="within_distance"
+                  name="within_distance"
+                  value={params.within_distance || ''}
+                  onChange={handleChange}
+                  className="w-24 rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">范围</option>
+                  <option value="5km">5km</option>
+                  <option value="10km">10km</option>
+                  <option value="25km">25km</option>
+                  <option value="50km">50km</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* 复选框选项 */}

@@ -182,4 +182,11 @@ export interface TwitterSearchParams {
   filter_type?: 'verified' | 'replies' | 'retweets';
   time_range?: '24h' | '7d' | '30d';
   sort_order?: 'latest' | 'popular';
+  
+  // 添加高级搜索操作符
+  min_retweets?: number;
+  min_faves?: number;
+  min_replies?: number;
+  near_location?: string;
+  within_distance?: string;
 }

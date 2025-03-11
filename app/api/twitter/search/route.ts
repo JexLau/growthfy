@@ -15,63 +15,95 @@ interface TwitterSearchParams {
   language?: string;
   sortBy?: 'relevance' | 'recency';
   next_token?: string;
+  min_retweets?: number;
+  min_faves?: number;
+  min_replies?: number;
+  near_location?: string;
+  within_distance?: string;
 }
 
 /**
  * 将我们的查询参数转换为 socialdata 接口所需的格式
  */
 function buildSocialDataQuery(params: TwitterSearchParams): string {
-  let query = params.query;
+  let query = params.query || '';
+  
+  // 如果查询中已经包含高级操作符，就不需要再添加了
+  const hasAdvancedOperators = /\b(from:|to:|@|filter:|min_|lang:|url:|near:|since:|until:)\b/.test(query);
+  
+  if (!hasAdvancedOperators) {
+    // 处理时间范围
+    if (params.fromDate && params.toDate) {
+      query += ` since:${params.fromDate} until:${params.toDate}`;
+    } else if (params.fromDate) {
+      query += ` since:${params.fromDate}`;
+    } else if (params.toDate) {
+      query += ` until:${params.toDate}`;
+    }
 
-  // 处理时间范围
-  if (params.fromDate && params.toDate) {
-    query += ` since:${params.fromDate} until:${params.toDate}`;
-  } else if (params.fromDate) {
-    query += ` since:${params.fromDate}`;
-  } else if (params.toDate) {
-    query += ` until:${params.toDate}`;
-  }
+    // 处理回复和转发
+    if (params.includeReplies === false) {
+      query += ` -filter:replies`;
+    }
 
-  // 处理回复和转发
-  if (params.includeReplies === false) {
-    query += ` -filter:replies`;
-  }
+    if (params.includeRetweets === false) {
+      query += ` -filter:nativeretweets`;
+    } else if (params.includeRetweets === true) {
+      query += ` include:nativeretweets`;
+    }
 
-  if (params.includeRetweets === false) {
-    query += ` -filter:nativeretweets`;
-  } else if (params.includeRetweets === true) {
-    query += ` include:nativeretweets`;
-  }
+    // 处理验证账号
+    if (params.filterVerified === true) {
+      query += ` filter:blue_verified`;
+    }
 
-  // 处理验证账号
-  if (params.filterVerified === true) {
-    query += ` filter:verified`;
-  }
+    // 处理媒体类型
+    if (params.mediaType) {
+      switch (params.mediaType) {
+        case 'images':
+          query += ` filter:images`;
+          break;
+        case 'videos':
+          query += ` filter:videos`;
+          break;
+        case 'links':
+          query += ` filter:links`;
+          break;
+        case 'all':
+          query += ` filter:media`;
+          break;
+      }
+    }
 
-  // 处理媒体类型
-  if (params.mediaType) {
-    switch (params.mediaType) {
-      case 'images':
-        query += ` filter:images`;
-        break;
-      case 'videos':
-        query += ` filter:videos`;
-        break;
-      case 'links':
-        query += ` filter:links`;
-        break;
-      case 'all':
-        query += ` filter:media`;
-        break;
+    // 处理语言
+    if (params.language) {
+      query += ` lang:${params.language}`;
+    }
+    
+    // 添加互动筛选
+    if (params.min_retweets) {
+      query += ` min_retweets:${params.min_retweets}`;
+    }
+    
+    if (params.min_faves) {
+      query += ` min_faves:${params.min_faves}`;
+    }
+    
+    if (params.min_replies) {
+      query += ` min_replies:${params.min_replies}`;
+    }
+    
+    // 地理位置筛选
+    if (params.near_location) {
+      query += ` near:"${params.near_location}"`;
+      
+      if (params.within_distance) {
+        query += ` within:${params.within_distance}`;
+      }
     }
   }
 
-  // 处理语言
-  if (params.language) {
-    query += ` lang:${params.language}`;
-  }
-
-  return query;
+  return query.trim();
 }
 
 /**
@@ -111,32 +143,29 @@ export async function GET(request: NextRequest) {
       mediaType: searchParams.get('mediaType') as TwitterSearchParams['mediaType'] || undefined,
       language: searchParams.get('language') || undefined,
       sortBy: searchParams.get('sortBy') as TwitterSearchParams['sortBy'] || 'recency',
-      next_token: nextToken || undefined
+      next_token: nextToken || undefined,
+      min_retweets: searchParams.get('min_retweets') ? parseInt(searchParams.get('min_retweets')!, 10) : undefined,
+      min_faves: searchParams.get('min_faves') ? parseInt(searchParams.get('min_faves')!, 10) : undefined,
+      min_replies: searchParams.get('min_replies') ? parseInt(searchParams.get('min_replies')!, 10) : undefined,
+      near_location: searchParams.get('near_location') || undefined,
+      within_distance: searchParams.get('within_distance') || undefined
     };
 
     // 构建查询字符串
     const socialDataQuery = buildSocialDataQuery(params);
+    // console.log('Twitter搜索查询:', socialDataQuery); // 记录最终查询
 
     // 请求 socialdata API
-    const url = new URL(`${SOCIALDATA_BASE_URL}/search`);
-    url.searchParams.append('query', query.replace(/\n\s+/g, ' ')); // 压缩查询格式
-    url.searchParams.append('type', 'Latest');
-    url.searchParams.append('sort_by', 'engagement');  // 新增排序参数
-    url.searchParams.append('limit', params.limit?.toString() || '10');
-    if (nextToken) {
-      url.searchParams.append('max_id', nextToken);
-    }
+    const url = new URL(`${SOCIALDATA_BASE_URL}/search?query=${socialDataQuery}`);
+
+    console.log('发送请求到:', url.toString()); // 记录请求URL
+
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${SOCIALDATA_API_KEY}`
       },
-      // body: JSON.stringify({
-      //   query: socialDataQuery,
-      //   limit: params.limit,
-      //   sort_by: params.sortBy
-      // })
     });
 
     // 处理响应
@@ -218,26 +247,28 @@ export async function POST(request: NextRequest) {
       mediaType: body.mediaType,
       language: body.language,
       sortBy: body.sortBy || 'recency',
-      next_token: body.next_token
+      next_token: body.next_token,
+      min_retweets: body.min_retweets ? parseInt(body.min_retweets, 10) : undefined,
+      min_faves: body.min_faves ? parseInt(body.min_faves, 10) : undefined,
+      min_replies: body.min_replies ? parseInt(body.min_replies, 10) : undefined,
+      near_location: body.near_location || undefined,
+      within_distance: body.within_distance || undefined
     };
 
     // 构建查询字符串
     const socialDataQuery = buildSocialDataQuery(params);
+    console.log('Twitter搜索查询 (POST):', socialDataQuery); // 记录最终查询
 
     // 请求 socialdata API
-    const response = await fetch(`${SOCIALDATA_BASE_URL}/search`, {
+    const response = await fetch(`${SOCIALDATA_BASE_URL}/search?query=${socialDataQuery}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${SOCIALDATA_API_KEY}`
-      },
-      body: JSON.stringify({
-        query: socialDataQuery,
-        limit: params.limit,
-        sort_by: params.sortBy,
-        max_id: params.next_token
-      })
+      }
     });
+    
+    console.log('POST请求发送完成'); // 记录请求完成
 
     // 处理响应
     if (!response.ok) {
